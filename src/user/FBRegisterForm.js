@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AsyncStorage, View,Text, Alert, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner,Fbinput } from './common';
+import { Actions } from 'react-native-router-flux';
 
 
 class FBRegisterForm extends Component {
@@ -8,6 +9,13 @@ class FBRegisterForm extends Component {
 
   constructor (props){
     super(props);
+  }
+  async saveOturum(key,value) {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      console.log("Error saving data" + error);
+    }
   }
   async componentDidMount (){
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('363422077500530', {
@@ -19,8 +27,14 @@ class FBRegisterForm extends Component {
         `https://graph.facebook.com/me?access_token=${token}`);
         this.setState(await response.json());
         this.setState({token: token});
-        //Actions.mapscreen();
-    }
+        if (this.state.token != null ) {
+          this.saveOturum('@komsudapiser:oturum','basarili');
+          this.saveOturum('@komsudapiser:email', this.state.id);
+          Actions.mapscreen();
+        } else {
+          this.setState({error: responseJson.basari})
+        }  
+      }
   }
   onButtonPress() {
     //Alert.alert('button pressed');
@@ -34,7 +48,7 @@ class FBRegisterForm extends Component {
         this.setState({error: responseJson.basari, loading: false});
         this.saveKey('@komsudapiser:id', id);
         this.saveKey('@komsudapiser:password', token); 
-        if (responseJson.basari == true || responseJson.basari == "zaten kayitli" ) {
+        if (responseJson.basari == true || responseJson.basari == "zaten kayitli" || responseJson.token != null ) {
           Actions.mapscreen();
         } else {
           this.setState({error: responseJson.basari});

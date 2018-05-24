@@ -56,7 +56,7 @@ export default class Fetchdata extends Component {
             longitude: position.coords.longitude,
             error: null,
          });
-         this.onRegionChange (position.coords);
+         this.onRegionChangeInit (position.coords);
 
     },
       (error) => this.setState({ error: error.message }),
@@ -77,7 +77,19 @@ export default class Fetchdata extends Component {
     .catch((error) =>{
       console.error(error);
     });
+  }
+  onRegionChangeInit (region) {
+    return fetch('http://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      if (responseJson) {
+       this.setState({markers: responseJson });
+      }
 
+    })
+    .catch((error) =>{
+      console.error(error);
+    });
   }
   onPressMarker(index) {
       //Alert.alert('markre pressed olayi');

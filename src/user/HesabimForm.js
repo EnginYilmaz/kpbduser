@@ -12,7 +12,7 @@ class HesabimForm extends Component {
   }
 
   state = {
-    resimgoruntule: true,adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, picture: { uri: 'http://webstudio.web.tr/resimler/resimyok.png' },
+    resimgoruntule: true, adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, picture: { uri: 'http://webstudio.web.tr/resimler/resimyok.png' },
     loading: false, latitude: null, longitude: null, loggedIn: false
   };
 
@@ -149,31 +149,30 @@ class HesabimForm extends Component {
     );
   }
 
-  fotografkismi () {
-    if (!this.props.userpicture ) {
+  fotografkismi() {
+    if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-          <Image style={{ height: 200, width: 150 }} source={{ uri:'http://webstudio.web.tr/resimler/kullaniciresmi/'+this.state.email+'.jpeg' }} />
+          <Image style={{ height: 200, width: 150 }} source={{ uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/' + this.state.email + '.jpeg' }} />
           <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
         </TouchableOpacity>
-        );
-        
+      );
+
     } else {
       return (
-      <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-      <Image style={{ height: 200, width: 150 }} source={{ uri:this.props.userpicture  }} />
-      <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
+          <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.userpicture }} />
+          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
+        </TouchableOpacity>
       );
     }
-  }
+  }    
 
   render() {
-    //voteable = (age < 18) ? "Too young":"Old enough";
-    //Alert.alert(this.state.email)
+
     return (
       <Card>
-        { this.fotografkismi()}
+        {this.fotografkismi()}
         <CardSection>
           <Input
             label="Full name"
