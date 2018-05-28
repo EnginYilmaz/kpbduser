@@ -1,26 +1,35 @@
 import React, { Component } from 'react'
 import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry, StatusBar} from 'react-native'
 import MapView, {Marker, ProviderPropType} from 'react-native-maps';
+import { Actions } from 'react-native-router-flux';
+import Showdata from './Showdata.js';
 
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: 400,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+  },
+  hub: {
+    height: 300,
+    width: 400,
   },
 });
+
 export default class Fetchdata extends Component {
   constructor (props) {
     super(props);
   };
   state = {
     basari: false,
-    markers: []
+    markers: [],
+    adsoyad: null,
+    email: null,
   };
  
   async getKey(key) {
@@ -38,7 +47,6 @@ export default class Fetchdata extends Component {
       console.log("Error saving data" + error);
     }
   }
-
   componentDidMount = () => {
 
     return fetch('http://webstudio.web.tr/user_validate.php' + '?email=' + this.getKey('@komsudapiser:email') + '&password=' + this.getKey('@komsudapiser:password'))
@@ -62,8 +70,6 @@ export default class Fetchdata extends Component {
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
     );
-    //let koordinat.latitude = parseFloat(this.props.latitude);
-    //let koordinat.longitude = parseFloat(this.props.longitude); 
    }
    onRegionChange (region) {
     return fetch('http://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
@@ -92,9 +98,20 @@ export default class Fetchdata extends Component {
     });
   }
   onPressMarker(index) {
-      //Alert.alert('markre pressed olayi');
-      //Alert.alert(this.key);
      console.log(index)
+     return fetch('http://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
+     .then((response) => response.json())
+     .then((responseJson) => {
+       if (responseJson) {
+        this.setState({adsoyad: responseJson.adsoyad, 
+                        email: responseJson.email });
+        //Alert.alert(this.state.adsoyad +' ' + this.state.email);
+        //Actions.mapscreen({adsoyad: responseJson.adsoyad, email: responseJson.email});
+       }
+     })
+     .catch((error) =>{
+       console.error(error);
+     });
   }
    render() {
     let enlem = parseFloat(this.props.latitude);
@@ -117,7 +134,8 @@ export default class Fetchdata extends Component {
             ))}
 
           </MapView>
-      </View>
+          <Showdata styles={styles.hub} adsoyad={this.state.adsoyad} email={this.state.email}/>
+        </View>
       );
    }
 }

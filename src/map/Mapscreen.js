@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry } from 'react-native';
+import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry  } from 'react-native';
 import MapView from 'react-native-maps';
 import Fetchdata from './Fetchdata.js';
 
 const styles = StyleSheet.create({
-
   container: {
     ...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: 400,
+    flex: 1,
+    flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+  },
+  hub: {
+    height: 300,
+    width: 400,
   },
 });
 
@@ -35,7 +38,6 @@ class Mapscreen extends Component {
     })  
     //Alert.alert(lat);
   } 
-
 
   render() {
     //Alert.alert(this.state.lat);

@@ -48,7 +48,7 @@ class FBRegisterForm extends Component {
         this.setState({error: responseJson.basari, loading: false});
         this.saveKey('@komsudapiser:id', id);
         this.saveKey('@komsudapiser:password', token); 
-        if (responseJson.basari == true || responseJson.basari == "zaten kayitli" || responseJson.token != null ) {
+        if (responseJson.basari == true || responseJson.basari == 'zaten kayitli' || responseJson.token != null ) {
           Actions.mapscreen();
         } else {
           this.setState({error: responseJson.basari});
