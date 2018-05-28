@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: 400,
   },
-});
+}); 
 
 class Mapscreen extends Component {
   state = {
