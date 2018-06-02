@@ -32,6 +32,7 @@ class Plainlogin extends Component {
   }
 
   render() {
+    /*
     if (this.state.oturum == 'basarili') {
       Actions.mapscreen();
       return (
@@ -40,6 +41,7 @@ class Plainlogin extends Component {
         </View>
       );
     } else {
+      */
       return (
         <View>
           <StatusBar hidden={true} />
@@ -47,7 +49,7 @@ class Plainlogin extends Component {
           {this.renderContent()}
         </View>
       );
-    }
+    //}
   }
 }
 

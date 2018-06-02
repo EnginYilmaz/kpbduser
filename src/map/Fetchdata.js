@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry, StatusBar} from 'react-native'
 import MapView, {Marker, ProviderPropType} from 'react-native-maps';
 import { Actions } from 'react-native-router-flux';
-import Showdata from './Showdata.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,10 +14,6 @@ const styles = StyleSheet.create({
     height: 400,
     width: 400,
   },
-  hub: {
-    height: 300,
-    width: 400,
-  },
 });
 
 export default class Fetchdata extends Component {
@@ -28,8 +23,6 @@ export default class Fetchdata extends Component {
   state = {
     basari: false,
     markers: [],
-    adsoyad: null,
-    email: null,
   };
  
   async getKey(key) {
@@ -98,28 +91,16 @@ export default class Fetchdata extends Component {
     });
   }
   onPressMarker(index) {
-     console.log(index)
-     return fetch('http://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
-     .then((response) => response.json())
-     .then((responseJson) => {
-       if (responseJson) {
-        this.setState({adsoyad: responseJson.adsoyad, 
-                        email: responseJson.email });
-        //Alert.alert(this.state.adsoyad +' ' + this.state.email);
-        //Actions.mapscreen({adsoyad: responseJson.adsoyad, email: responseJson.email});
-       }
-     })
-     .catch((error) =>{
-       console.error(error);
-     });
+    this.props.callbackMethod(index);
   }
-   render() {
+  
+  render() {
     let enlem = parseFloat(this.props.latitude);
     let boylam = parseFloat(this.props.longitude);  
     return (
         <View style={styles.container}>
           <StatusBar hidden={true} />
-          <MapView
+            <MapView
                 style={styles.map}
                 initialRegion={{
                     latitude: enlem,
@@ -134,7 +115,6 @@ export default class Fetchdata extends Component {
             ))}
 
           </MapView>
-          <Showdata styles={styles.hub} adsoyad={this.state.adsoyad} email={this.state.email}/>
         </View>
       );
    }

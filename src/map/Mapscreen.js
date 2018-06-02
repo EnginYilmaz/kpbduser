@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry  } from 'react-native';
 import MapView from 'react-native-maps';
 import Fetchdata from './Fetchdata.js';
+import Showdata from './Showdata.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +24,9 @@ const styles = StyleSheet.create({
 class Mapscreen extends Component {
   state = {
     lat: null,
-    lng: null
+    lng: null,
+    adsoyad: null,
+    email: null,
   }
   constructor (props) {
     super(props);
@@ -38,12 +41,27 @@ class Mapscreen extends Component {
     })  
     //Alert.alert(lat);
   } 
+  callbackMethod = (index) => {
+      //console.log(index)
+      return fetch('http://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson) {
+         this.setState({adsoyad: responseJson.adsoyad, 
+                         email: responseJson.email });
+        }
+      })
+      .catch((error) =>{
+        console.error(error);
+      });  
+  };
 
   render() {
     //Alert.alert(this.state.lat);
     return (
       <View style ={styles.container}>
-        <Fetchdata latitude={this.state.lat} longitude={this.state.lng}/>
+        <Fetchdata latitude={this.state.lat} longitude={this.state.lng} callbackMethod={this.callbackMethod} />
+        <Showdata adsoyad={this.state.adsoyad} email={this.state.email} />
       </View>
     );
   }
