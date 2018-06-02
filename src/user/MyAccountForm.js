@@ -1,11 +1,11 @@
 import React, { Component, } from 'react';
-import { AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
+import { StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 import { ImagePicker } from 'expo';
 import { Constants, Camera, FileSystem, Permissions } from 'expo';
 
-class HesabimForm extends Component {
+class MyAccountForm extends Component {
 
   constructor(props) {
     super(props);
@@ -61,7 +61,7 @@ class HesabimForm extends Component {
     }
   }
   shotPhoto = async () => {
-    Actions.fotograf();
+    Actions.photograph();
   };
 
   onGuncellePress() {
@@ -93,12 +93,7 @@ class HesabimForm extends Component {
         .then((response) => response.json())
         .then((responseJson) => {
           this.setState({ error: responseJson.basari, loading: false });
-          //this.saveKey('@komsudapiser:email', email);
-          //this.saveKey('@komsudapiser:password', password);
-          //this.saveKey('@komsudapiser:lat', latitude);
-          //this.saveKey('@komsudapiser:lng', longitude);
           if (responseJson.basari == true) {
-            //Actions.mapscreen();
             Alert.alert("kayit basarili");
           } else {
             this.setState({ error: responseJson.basari });
@@ -126,7 +121,7 @@ class HesabimForm extends Component {
       console.log("Error saving data" + error);
     }
   }
-  renderGuncelleButton() {
+  renderRefreshButton() {
     if (this.state.loading) {
       return <Spinner size="small" />;
     }
@@ -137,7 +132,7 @@ class HesabimForm extends Component {
       </Button>
     );
   }
-  renderCikisButton() {
+  renderLogoutButton() {
     if (this.state.loading) {
       return <Spinner size="small" />;
     }
@@ -149,7 +144,7 @@ class HesabimForm extends Component {
     );
   }
 
-  fotografkismi() {
+  photographkismi() {
     if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
@@ -171,8 +166,11 @@ class HesabimForm extends Component {
   render() {
 
     return (
+      <View>
+      <StatusBar hidden={true} />
+
       <Card>
-        {this.fotografkismi()}
+        {this.photographkismi()}
         <CardSection>
           <Input
             label="Full name"
@@ -221,14 +219,15 @@ class HesabimForm extends Component {
         </Text>
 
         <CardSection>
-          {this.renderCikisButton()}
+          {this.renderLogoutButton()}
         </CardSection>
 
         <CardSection>
-          {this.renderGuncelleButton()}
+          {this.renderRefreshButton()}
         </CardSection>
 
       </Card >
+      </View>
     );
   }
 }
@@ -245,4 +244,4 @@ const styles = {
   }
 };
 
-export default HesabimForm;
+export default MyAccountForm;

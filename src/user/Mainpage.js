@@ -3,7 +3,7 @@ import { AsyncStorage, View,Text, Alert, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 
 
-const Anasayfa = () => {
+const Mainpage = () => {
 
     return (
         <Card>
@@ -24,4 +24,4 @@ const Anasayfa = () => {
     );
 };
 
-export default Anasayfa
+export default Mainpage

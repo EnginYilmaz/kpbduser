@@ -14,11 +14,12 @@ import {
 } from 'react-native-router-flux';
 import Plainlogin from './src/user/Plainlogin.js';
 import Mapscreen from './src/map/Mapscreen.js';
-import Anasayfa from './src/user/Anasayfa.js';
+import Mainpage from './src/user/Mainpage.js';
 import FBRegister from './src/user/FBRegister.js';
 import FBLogin from './src/user/FBLogin.js';
-import HesabimForm from './src/user/HesabimForm.js';
-import Plainregister from './src/user/Plainregister.js'
+import MyAccountForm from './src/user/MyAccountForm.js';
+import Plainregister from './src/user/Plainregister.js';
+import Portfolio from './src/user/Portfolio.js'
 import { AppRegistry, StatusBar, Alert } from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
@@ -35,12 +36,13 @@ const RouterComponent = () => {
                     drawerImage={MenuIcon}
                     drawerWidth={300}
                 >
-                    <Scene key="hesabim" component={HesabimForm} title="Komşuda pişer" />
+                    <Scene key="myaccount" component={MyAccountForm} title="Komşuda pişer" />
+                    <Scene key="portfolio" component={Portfolio} title="Komşuda pişer" />
                     <Scene key="user" component={Plainlogin} title="Komşuda pişer" initial />
                     <Scene key="plainregister" component={Plainregister} title="Komşuda pişer" />
-                    <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" onRight={() => Actions.hesabim()} rightTitle="Hesabım" />
+                    <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" onRight={() => Actions.myaccount()} rightTitle="Hesabım" />
                     <Scene key="fbregister" component={FBRegister} title="Komşuda pişer" />
-                    <Scene key="fotograf" component={CameraScreen} title="Komşuda pişer" />
+                    <Scene key="photograph" component={CameraScreen} title="Komşuda pişer" />
                 </Drawer>
         </Router>
     );

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         width: 298,
         padding: 2,
     },
-    hesabim : {
+    myaccount : {
         backgroundColor: '#faf5a0',
         borderRadius: 10,
         padding: 5,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         width: 298,
         padding: 2,
     },
-    urunlerim : {
+    portfolio : {
         backgroundColor: '#efa0fa',
         borderRadius: 10,
         padding: 5,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         width: 298,
         padding: 2,
     },
-    mesajlarim : {
+    mymessages : {
         backgroundColor: '#faa0aa',
         borderRadius: 10,
         padding: 5,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         width: 298,
         padding: 2,
     },
-    harita : {
+    map : {
         backgroundColor: '#aafaa0',
         borderRadius: 10,
         padding: 5,
@@ -90,10 +90,9 @@ class HamburgerMenu extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button style={styles.hesabim} onpress={Actions.hesabim}>Hesabım</Button>
-                <Button style={styles.urunlerim} onpress={Actions.urunlerim}>Ürünlerim</Button>
-                <Button style={styles.mesajlarim} onpress={Actions.mesajlarim}>Mesajlarım</Button>
-                <Button style={styles.harita} onPress={Actions.mapscreen}>Harita</Button>
+                <Button style={styles.myaccount} onpress={Actions.myaccount}>My Account</Button>
+                <Button style={styles.map} onPress={Actions.mapscreen}>Map</Button>
+                <Button style={styles.portfolio} onpress={Actions.photograph}>Photograph</Button>
             </View>
         );
     }

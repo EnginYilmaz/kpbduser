@@ -106,7 +106,7 @@ export default class CameraScreen extends React.Component {
     if (this.camera) {
       this.camera.takePictureAsync().then(data => {
         //console.log(data.uri);
-        Actions.hesabim({ userpicture: data.uri})
+        Actions.myaccount({ userpicture: data.uri})
       });
     }
   };
