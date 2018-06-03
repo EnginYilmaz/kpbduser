@@ -90,9 +90,9 @@ class HamburgerMenu extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button style={styles.myaccount} onpress={Actions.myaccount}>My Account</Button>
+                <Button style={styles.myaccount} onPress={Actions.myaccount}>My Account</Button>
+                <Button style={styles.portfolio} onPress={Actions.portfolio}>Portfolio</Button>
                 <Button style={styles.map} onPress={Actions.mapscreen}>Map</Button>
-                <Button style={styles.portfolio} onpress={Actions.photograph}>Photograph</Button>
             </View>
         );
     }

@@ -19,7 +19,7 @@ import FBRegister from './src/user/FBRegister.js';
 import FBLogin from './src/user/FBLogin.js';
 import MyAccountForm from './src/user/MyAccountForm.js';
 import Plainregister from './src/user/Plainregister.js';
-import Portfolio from './src/user/Portfolio.js'
+import MyPortfolio from './src/portfolio/MyPortfolio.js';
 import { AppRegistry, StatusBar, Alert } from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
@@ -31,16 +31,15 @@ const RouterComponent = () => {
 
         <Router>
                 <Drawer
-                    hideNavBar
                     contentComponent={HamburgerMenu}
                     drawerImage={MenuIcon}
                     drawerWidth={300}
                 >
                     <Scene key="myaccount" component={MyAccountForm} title="Komşuda pişer" />
-                    <Scene key="portfolio" component={Portfolio} title="Komşuda pişer" />
+                    <Scene key="portfolio" component={MyPortfolio} title="Komşuda pişer" />
                     <Scene key="user" component={Plainlogin} title="Komşuda pişer" initial />
                     <Scene key="plainregister" component={Plainregister} title="Komşuda pişer" />
-                    <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" onRight={() => Actions.myaccount()} rightTitle="Hesabım" />
+                    <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" />
                     <Scene key="fbregister" component={FBRegister} title="Komşuda pişer" />
                     <Scene key="photograph" component={CameraScreen} title="Komşuda pişer" />
                 </Drawer>
