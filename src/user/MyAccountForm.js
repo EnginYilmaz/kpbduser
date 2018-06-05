@@ -61,7 +61,7 @@ class MyAccountForm extends Component {
     }
   }
   shotPhoto = async () => {
-    Actions.photograph();
+    Actions.photoportfolio();
   };
 
   onGuncellePress() {
@@ -144,7 +144,7 @@ class MyAccountForm extends Component {
     );
   }
 
-  photographkismi() {
+  PhotoSection() {
     if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
@@ -170,7 +170,7 @@ class MyAccountForm extends Component {
       <StatusBar hidden={true} />
 
       <Card>
-        {this.photographkismi()}
+        {this.PhotoSection()}
         <CardSection>
           <Input
             label="Full name"

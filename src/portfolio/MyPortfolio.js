@@ -1,6 +1,6 @@
 import React, { Component, } from 'react';
 import { StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
-import { Button, Card, CardSection, Input, Spinner } from '../user/common';
+import { Button, Card, CardSection, Input, Minput, Spinner } from '../user/common';
 import { Actions } from 'react-native-router-flux';
 import { ImagePicker } from 'expo';
 import { Constants, Camera, FileSystem, Permissions } from 'expo';
@@ -12,10 +12,10 @@ class MyPortfolio extends Component {
   }
 
   state = {
-    resimgoruntule: true, adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, picture: { uri: 'http://webstudio.web.tr/resimler/resimyok.png' },
-    loading: false, latitude: null, longitude: null, loggedIn: false
+    productname:'', resimgoruntule: true, resimurl: {}, email: '', error: '', rol: false,
+    loading: false,
   };
-
+  state
   async componentWillMount() {
     const emailim = await AsyncStorage.getItem('@komsudapiser:email');
     console.log(emailim);
@@ -31,10 +31,8 @@ class MyPortfolio extends Component {
           rolum = true;
         }
         this.setState({
-          adsoyad: responseJson.adsoyad,
+          resimurl: responseJson.resimurl,
           email: responseJson.email,
-          password: responseJson.password,
-          password_repeat: responseJson.password_repeat,
           rol: rolum,
           loading: false,
         })
@@ -42,57 +40,46 @@ class MyPortfolio extends Component {
   }
   async saveOturum(key, value) {
     try {
-      await AsyncStorage.setItem(key, value);
+      //await AsyncStorage.setItem(key, value);
+      console.log()
     } catch (error) {
       console.log("Error saving data" + error);
     }
   }
   shotPhoto = async () => {
-    Actions.photograph();
+    Actions.photoportfolio();
   };
 
   onGuncellePress() {
     //Alert.alert(''+ this.props.longitude);
-    const { adsoyad, email, password, password_repeat, rol } = this.state;
-    if (this.state.password != this.state.password_repeat) {
-      this.setState({ error: 'Şifreler aynı değil' });
-    } else {
-      this.setState({ error: '', loading: true });
-      //myURL = 'http://webstudio.web.tr/user_update_put.php' + '?email=' + this.state.email + '&adsoyad=' + this.state.adsoyad + '&password=' + this.state.password + '&latitude=' + '' + this.state.latitude + '&longitude=' + this.state.longitude + '&password_repeat=' + this.state.password_repeat + '&rol=' + this.state.rol;
-      myURL = 'http://webstudio.web.tr/user_update_put.php';
-      const data = new FormData();
-      data.append('email', this.state.email);
-      data.append('adsoyad', this.state.adsoyad);
-      data.append('password', password);
-      data.append('password_repeat', this.state.password_repeat);
-      data.append('latitude', this.state.latitude);
-      data.append('longitude', this.state.longitude);
-      data.append('rol', this.state.rol);
-      data.append('photo', {
-        uri: this.props.userpicture,
-        type: 'image/jpeg', // or photo.type
-        name: email + '.jpeg',
-      });
-      return fetch(myURL, {
-        method: 'post',
-        body: data
-      })
-        .then((response) => response.json())
-        .then((responseJson) => {
-          this.setState({ error: responseJson.basari, loading: false });
-          if (responseJson.basari == true) {
-            Alert.alert("kayit basarili");
-          } else {
-            this.setState({ error: responseJson.basari });
-          }
-        })
-    }
-  }
-  onCikisPress() {
-    this.saveOturum('@komsudapiser:oturum', 'basarisiz');
-    this.saveKey('@komsudapiser:email', '');
-    Actions.user();
+    const { email} = this.state;
+    this.setState({ error: '', loading: true });
+    myURL = 'http://webstudio.web.tr/profile_update_put.php';
+    const data = new FormData();
+    data.append('email', this.state.email);
+    data.append('productname', this.state.productname);
+    data.append('productdescription', this.state.productdescription);
 
+    data.append('photo', {
+      uri: this.props.userpicture,
+      type: 'image/jpeg', // or photo.type
+      name: email+'_'+(Math.floor(Math.random() * 10000000)) + '.jpeg',
+    });
+    //Alert.alert(photoid+'');
+    return fetch(myURL, {
+      method: 'post',
+      body: data
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({ error: responseJson.basari, loading: false });
+        if (responseJson.basari == true) {
+          //Alert.alert("kayit basarili");
+        } else {
+          this.setState({ error: responseJson.basari });
+          //Alert.alert(responseJson.basari);
+        }
+      })
   }
   async getKey(key) {
     try {
@@ -131,11 +118,11 @@ class MyPortfolio extends Component {
     );
   }
 
-  photographkismi() {
+  PhotoSection() {
     if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-          <Image style={{ height: 200, width: 150 }} source={{ uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/' + this.state.email + '.jpeg' }} />
+          <Image style={{ height: 200, width: 150 }} source={{ uri: 'http://webstudio.web.tr/resimler/portfolio/' + this.state.email + '/' + (this.state.photoid) + '.jpeg' }} />
           <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
         </TouchableOpacity>
       );
@@ -148,72 +135,38 @@ class MyPortfolio extends Component {
         </TouchableOpacity>
       );
     }
-  }    
+  }
 
   render() {
 
     return (
       <View>
-      <StatusBar hidden={true} />
-
-      <Card>
-        {this.photographkismi()}
-        <CardSection>
-          <Input
-            label="Full name"
-            value={this.state.adsoyad}
-            onChangeText={adsoyad => this.setState({ adsoyad })}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            label="E-Mail"
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="Password"
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="Password repeat"
-            value={this.state.password_repeat}
-            onChangeText={password_repeat => this.setState({ password_repeat })}
-          />
-        </CardSection>
-
-        <CardSection>
+        <StatusBar hidden={true} />
+        <Card>
           <CardSection>
-            <Text style={styles.rolTextStyle}>
-              I am a Cooker
-            </Text>
+            {this.PhotoSection()}
           </CardSection>
-          <Switch
-            onValueChange={rol => this.setState({ rol })}
-            value={this.state.rol} />
-        </CardSection>
-
+          <CardSection>
+          <Input
+            label="Product name"
+            value={this.state.productname}
+            onChangeText={productname => this.setState({ productname })}
+          />
+          </CardSection>
+          <CardSection>
+          <Minput
+            label="Product description"
+            value={this.state.productdescription}
+            onChangeText={productdescription => this.setState({ productdescription })}
+          />
+          </CardSection>
+          <CardSection>
+            {this.renderRefreshButton()}
+          </CardSection>
+          </Card>
         <Text style={styles.errorTextStyle}>
           {this.state.error}
         </Text>
-
-        <CardSection>
-          {this.renderLogoutButton()}
-        </CardSection>
-
-        <CardSection>
-          {this.renderRefreshButton()}
-        </CardSection>
-
-      </Card >
       </View>
     );
   }

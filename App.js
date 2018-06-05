@@ -22,6 +22,7 @@ import Plainregister from './src/user/Plainregister.js';
 import MyPortfolio from './src/portfolio/MyPortfolio.js';
 import { AppRegistry, StatusBar, Alert } from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
+import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
 
 import MenuIcon from './images/menu_burger.png';
@@ -42,6 +43,8 @@ const RouterComponent = () => {
                     <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" />
                     <Scene key="fbregister" component={FBRegister} title="Komşuda pişer" />
                     <Scene key="photograph" component={CameraScreen} title="Komşuda pişer" />
+                    <Scene key="photoportfolio" component={CameraPortfolioScreen} title="Komşuda pişer" />
+
                 </Drawer>
         </Router>
     );
