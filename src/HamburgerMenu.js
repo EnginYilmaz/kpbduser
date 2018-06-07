@@ -91,7 +91,7 @@ class HamburgerMenu extends React.Component {
         return (
             <View style={styles.container}>
                 <Button style={styles.myaccount} onPress={Actions.myaccount}>My Account</Button>
-                <Button style={styles.portfolio} onPress={Actions.portfolio}>Portfolio</Button>
+                <Button style={styles.portfolio} onPress={Actions.portfolio}>New Cake!</Button>
                 <Button style={styles.map} onPress={Actions.mapscreen}>Map</Button>
             </View>
         );

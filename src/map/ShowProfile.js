@@ -9,23 +9,23 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
-  hub: {
+  tablo: {
     height: 300,
     width: 400,
   },
 
 });
-export default class Showdata extends Component {
+export default class ShowProfile extends Component {
     state = {
         adsoyad: null,
         email: null,
     };
     render() { 
       let pic = {
-        uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/'+this.props.email + '.jpeg',
+        uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/'+ this.props.email + '.jpeg',
       }; 
       return (
-        <View styles={styles.hub}>
+        <View styles={styles.tablo}>
           <StatusBar hidden={true} />
           <Image source={pic} style={{width: 100, height: 150}}/>
           <Text>{this.props.adsoyad}</Text>

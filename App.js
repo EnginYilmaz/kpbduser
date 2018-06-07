@@ -25,7 +25,7 @@ import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
 
-import MenuIcon from './images/menu_burger.png';
+import MenuIcon from './images/menu_burger.png';  
 
 const RouterComponent = () => {
     return (
@@ -34,7 +34,7 @@ const RouterComponent = () => {
                 <Drawer
                     contentComponent={HamburgerMenu}
                     drawerImage={MenuIcon}
-                    drawerWidth={300}
+                    drawerWidth={300}  
                 >
                     <Scene key="myaccount" component={MyAccountForm} title="Komşuda pişer" />
                     <Scene key="portfolio" component={MyPortfolio} title="Komşuda pişer" />

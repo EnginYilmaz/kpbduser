@@ -21,11 +21,11 @@ class MyPortfolio extends Component {
     console.log(emailim);
     this.setState({ error: '', loading: true });
 
-    myURL = 'http://webstudio.web.tr/portfolio_update_get.php' + '?email=' + emailim;
-    return fetch(myURL)
+    myURL = 'http://webstudio.web.tr/profile_update_get.php' + '?email=' + emailim;
+    return fetch(myURL)  
       .then((response) => response.json())
       .then((responseJson) => {
-        let rolum = false;
+        let rolum = false;  
 
         if (responseJson.rol == "asci") {
           rolum = true;
@@ -54,7 +54,7 @@ class MyPortfolio extends Component {
     //Alert.alert(''+ this.props.longitude);
     const { email} = this.state;
     this.setState({ error: '', loading: true });
-    myURL = 'http://webstudio.web.tr/profile_update_put.php';
+    myURL = 'http://webstudio.web.tr/portfolio_update_put.php';
     const data = new FormData();
     data.append('email', this.state.email);
     data.append('productname', this.state.productname);

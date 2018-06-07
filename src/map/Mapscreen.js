@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry  } from 'react-native';
 import MapView from 'react-native-maps';
 import Fetchdata from './Fetchdata.js';
-import Showdata from './Showdata.js';
+import ShowProfile from './ShowProfile.js';
+import ShowPortfolio from './ShowPortfolio.js';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -61,7 +63,8 @@ class Mapscreen extends Component {
     return (
       <View style ={styles.container}>
         <Fetchdata latitude={this.state.lat} longitude={this.state.lng} callbackMethod={this.callbackMethod} />
-        <Showdata adsoyad={this.state.adsoyad} email={this.state.email} />
+        <ShowProfile adsoyad={this.state.adsoyad} email={this.state.email} />
+        <ShowPortfolio email={this.state.email} />
       </View>
     );
   }

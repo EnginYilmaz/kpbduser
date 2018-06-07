@@ -61,7 +61,7 @@ class MyAccountForm extends Component {
     }
   }
   shotPhoto = async () => {
-    Actions.photoportfolio();
+    Actions.photograph();
   };
 
   onGuncellePress() {
@@ -105,7 +105,6 @@ class MyAccountForm extends Component {
     this.saveOturum('@komsudapiser:oturum', 'basarisiz');
     this.saveKey('@komsudapiser:email', '');
     Actions.user();
-
   }
   async getKey(key) {
     try {
@@ -161,72 +160,72 @@ class MyAccountForm extends Component {
         </TouchableOpacity>
       );
     }
-  }    
+  }
 
   render() {
 
     return (
       <View>
-      <StatusBar hidden={true} />
+        <StatusBar hidden={true} />
 
-      <Card>
-        {this.PhotoSection()}
-        <CardSection>
-          <Input
-            label="Full name"
-            value={this.state.adsoyad}
-            onChangeText={adsoyad => this.setState({ adsoyad })}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            label="E-Mail"
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-          />
-        </CardSection>
-
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="Password"
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-          />
-        </CardSection>
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="Password repeat"
-            value={this.state.password_repeat}
-            onChangeText={password_repeat => this.setState({ password_repeat })}
-          />
-        </CardSection>
-
-        <CardSection>
+        <Card>
+          {this.PhotoSection()}
           <CardSection>
-            <Text style={styles.rolTextStyle}>
-              I am a Cooker
-            </Text>
+            <Input
+              label="Full name"
+              value={this.state.adsoyad}
+              onChangeText={adsoyad => this.setState({ adsoyad })}
+            />
           </CardSection>
-          <Switch
-            onValueChange={rol => this.setState({ rol })}
-            value={this.state.rol} />
-        </CardSection>
+          <CardSection>
+            <Input
+              label="E-Mail"
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
+            />
+          </CardSection>
 
-        <Text style={styles.errorTextStyle}>
-          {this.state.error}
-        </Text>
+          <CardSection>
+            <Input
+              secureTextEntry
+              label="Password"
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })}
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              secureTextEntry
+              label="Password repeat"
+              value={this.state.password_repeat}
+              onChangeText={password_repeat => this.setState({ password_repeat })}
+            />
+          </CardSection>
 
-        <CardSection>
-          {this.renderLogoutButton()}
-        </CardSection>
+          <CardSection>
+            <CardSection>
+              <Text style={styles.rolTextStyle}>
+                I am a Cooker
+            </Text>
+            </CardSection>
+            <Switch
+              onValueChange={rol => this.setState({ rol })}
+              value={this.state.rol} />
+          </CardSection>
 
-        <CardSection>
-          {this.renderRefreshButton()}
-        </CardSection>
+          <Text style={styles.errorTextStyle}>
+            {this.state.error}
+          </Text>
 
-      </Card >
+          <CardSection>
+            {this.renderLogoutButton()}
+          </CardSection>
+
+          <CardSection>
+            {this.renderRefreshButton()}
+          </CardSection>
+
+        </Card >
       </View>
     );
   }
