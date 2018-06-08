@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     height: 300,
     width: 400,
   },
-
+      
 });
 export default class ShowPortfolio extends Component {
   state = {
@@ -38,14 +38,10 @@ export default class ShowPortfolio extends Component {
   }
   render() {
     this.getPortfolio();
-    /*
-    let pic = {
-      uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/'+ this.props.email + '.jpeg',
-    }; 
-    */
+
     if (this.state.urunler) {
       return (
-        <View style={{ flex: 1 }}>
+        <View>
           <StatusBar hidden={true} />
 
           {this.state.urunler.map((urun, index) => (
@@ -58,7 +54,7 @@ export default class ShowPortfolio extends Component {
       );
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View>
           <StatusBar hidden={true} />
           <Text>Herhangi bir kek bulunamadı</Text>
         </View>

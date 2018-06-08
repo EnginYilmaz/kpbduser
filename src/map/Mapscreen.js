@@ -14,10 +14,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   map: {
-    height: 400,
+    height: 300,
     width: 400,
   },
   hub: {
+    height: 300,
+    width: 400,
+  },
+  tub: {
     height: 300,
     width: 400,
   },
@@ -41,10 +45,8 @@ class Mapscreen extends Component {
       lat: lat,
       lng: lng 
     })  
-    //Alert.alert(lat);
   } 
   callbackMethod = (index) => {
-      //console.log(index)
       return fetch('http://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -59,12 +61,11 @@ class Mapscreen extends Component {
   };
 
   render() {
-    //Alert.alert(this.state.lat);
     return (
       <View style ={styles.container}>
-        <Fetchdata latitude={this.state.lat} longitude={this.state.lng} callbackMethod={this.callbackMethod} />
-        <ShowProfile adsoyad={this.state.adsoyad} email={this.state.email} />
-        <ShowPortfolio email={this.state.email} />
+        <Fetchdata style={styles.map} latitude={this.state.lat} longitude={this.state.lng} callbackMethod={this.callbackMethod} />
+        <ShowProfile style={styles.hub} adsoyad={this.state.adsoyad} email={this.state.email} />
+        <ShowPortfolio style={styles.tub} email={this.state.email} />
       </View>
     );
   }

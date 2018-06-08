@@ -98,7 +98,7 @@ export default class Fetchdata extends Component {
     let enlem = parseFloat(this.props.latitude);
     let boylam = parseFloat(this.props.longitude);  
     return (
-        <View style={styles.container}>
+        <View>
           <StatusBar hidden={true} />
             <MapView
                 style={styles.map}

@@ -12,7 +12,10 @@ class Plainlogin extends Component {
     console.log (oturum);
     this.setState({ 
       oturum: oturum,
-    });  
+    });
+    if (this.state.oturum == 'basarili') {
+      Actions.mapscreen();
+    }
     //Alert.alert(lat);
   }
 
@@ -32,16 +35,6 @@ class Plainlogin extends Component {
   }
 
   render() {
-    /*
-    if (this.state.oturum == 'basarili') {
-      Actions.mapscreen();
-      return (
-        <View>
-          <Text>Oturum açma başarısız</Text>
-        </View>
-      );
-    } else {
-      */
       return (
         <View>
           <StatusBar hidden={true} />
@@ -49,7 +42,6 @@ class Plainlogin extends Component {
           {this.renderContent()}
         </View>
       );
-    //}
   }
 }
 
