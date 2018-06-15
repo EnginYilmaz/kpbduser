@@ -23,6 +23,8 @@ import MyPortfolio from './src/portfolio/MyPortfolio.js';
 import { AppRegistry, StatusBar, Alert } from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
+import SendMessage from './src/messages/SendMessage.js';
+
 import HamburgerMenu from './src/HamburgerMenu.js';
 
 import MenuIcon from './images/menu_burger.png';  
@@ -44,7 +46,7 @@ const RouterComponent = () => {
                     <Scene key="fbregister" component={FBRegister} title="Komşuda pişer" />
                     <Scene key="photograph" component={CameraScreen} title="Komşuda pişer" />
                     <Scene key="photoportfolio" component={CameraPortfolioScreen} title="Komşuda pişer" />
-
+                    <Scene key="sendmessage" component={SendMessage} title="Komşuda pişer" />
                 </Drawer>
         </Router>
     );

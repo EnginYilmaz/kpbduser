@@ -57,7 +57,7 @@ export default class Fetchdata extends Component {
             longitude: position.coords.longitude,
             error: null,
          });
-         this.onRegionChangeInit (position.coords);
+         //this.onRegionChangeInit (position.coords);
 
     },
       (error) => this.setState({ error: error.message }),
@@ -96,7 +96,8 @@ export default class Fetchdata extends Component {
   
   render() {
     let enlem = parseFloat(this.props.latitude);
-    let boylam = parseFloat(this.props.longitude);  
+    let boylam = parseFloat(this.props.longitude);
+    //Alert.alert(enlem);  
     return (
         <View>
           <StatusBar hidden={true} />

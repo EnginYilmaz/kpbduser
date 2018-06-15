@@ -5,15 +5,11 @@ import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+    flexDirection: 'row',
   },
-  hub: {
-    flex: 1,
-    height: 300,
-    width: 400,
+  tub: {
+
   },
       
 });
@@ -26,11 +22,9 @@ export default class ShowPortfolio extends Component {
     return fetch('http://webstudio.web.tr/portfolio_get_map.php' + '?email=' + this.props.email)
       .then((response) => response.json())
       .then((responseJson) => {
-        //this.setState({basari: responseJson });
         this.setState({
           urunler: responseJson
         });
-        //console.log(this.state.urunler);
       })
       .catch((error) => {
         console.error(error);
@@ -41,13 +35,14 @@ export default class ShowPortfolio extends Component {
 
     if (this.state.urunler) {
       return (
-        <View>
+        <View style={styles.container}>
           <StatusBar hidden={true} />
 
           {this.state.urunler.map((urun, index) => (
-            <View>
+            <View style={styles.tub}>
               <Image key={index} style={{width: 50, height: 50}} source= {{ uri: 'http://webstudio.web.tr/resimler/portfolio/' + urun.resimler}} />
-              <Text key={index}>{urun.urunadi}: {urun.urunaciklamasi}</Text>
+              <Text key={index}>{urun.urunadi}</Text>
+              <Text key={index} >{urun.urunaciklamasi}</Text>
             </View>
           ))}
         </View>

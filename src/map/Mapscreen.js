@@ -5,7 +5,6 @@ import Fetchdata from './Fetchdata.js';
 import ShowProfile from './ShowProfile.js';
 import ShowPortfolio from './ShowPortfolio.js';
 
-
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
@@ -16,14 +15,18 @@ const styles = StyleSheet.create({
   map: {
     height: 300,
     width: 400,
+    flex:1,
   },
   hub: {
     height: 300,
     width: 400,
+    flex: 1,
   },
   tub: {
     height: 300,
     width: 400,
+    flex:1,
+    flexDirection: 'row'
   },
 });  
 

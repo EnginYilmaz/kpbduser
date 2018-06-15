@@ -15,7 +15,7 @@ class MyPortfolio extends Component {
     productname:'', resimgoruntule: true, resimurl: {}, email: '', error: '', rol: false,
     loading: false,
   };
-  state
+  
   async componentWillMount() {
     const emailim = await AsyncStorage.getItem('@komsudapiser:email');
     console.log(emailim);
