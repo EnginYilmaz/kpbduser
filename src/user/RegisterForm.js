@@ -17,7 +17,7 @@ class RegisterForm extends Component {
       this.setState({error: 'Şifreler aynı değil'});
     } else {
       this.setState({ error: '', loading: true });
-      myURL= 'http://webstudio.web.tr/user_register.php' + '?email=' + email + '&adsoyad='+adsoyad +'&password=' + password + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude +'&password_repeat=' + password_repeat+ '&rol=' + rol;
+      myURL= 'https://webstudio.web.tr/user_register.php' + '?email=' + email + '&adsoyad='+adsoyad +'&password=' + password + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude +'&password_repeat=' + password_repeat+ '&rol=' + rol;
       //this.setState({error: myURL});
       return fetch(myURL)
       .then((response) => response.json())

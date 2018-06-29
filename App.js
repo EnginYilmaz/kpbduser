@@ -20,6 +20,8 @@ import FBLogin from './src/user/FBLogin.js';
 import MyAccountForm from './src/user/MyAccountForm.js';
 import Plainregister from './src/user/Plainregister.js';
 import MyPortfolio from './src/portfolio/MyPortfolio.js';
+import MyMessages from './src/messages/GetMessage.js';
+
 import { AppRegistry, StatusBar, Alert } from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
@@ -40,6 +42,7 @@ const RouterComponent = () => {
                 >
                     <Scene key="myaccount" component={MyAccountForm} title="Komşuda pişer" />
                     <Scene key="portfolio" component={MyPortfolio} title="Komşuda pişer" />
+                    <Scene key="messages" component={MyMessages} title="Komşuda pişer" />
                     <Scene key="user" component={Plainlogin} title="Komşuda pişer" initial />
                     <Scene key="plainregister" component={Plainregister} title="Komşuda pişer" />
                     <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" />

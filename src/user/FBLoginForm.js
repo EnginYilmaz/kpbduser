@@ -8,7 +8,7 @@ class LoginForm extends Component {
   onButtonPress() {
     const { email, password } = this.state;
     this.setState({ error: '', loading: true });
-      myURL= 'http://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
+      myURL= 'https://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
       return fetch(myURL)
       .then((response) => response.json())
       .then((responseJson) => {

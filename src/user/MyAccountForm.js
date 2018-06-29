@@ -12,11 +12,13 @@ class MyAccountForm extends Component {
   }
 
   state = {
-    resimgoruntule: true, adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, picture: { uri: 'http://webstudio.web.tr/resimler/resimyok.png' },
+    resimgoruntule: true, adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, picture: { uri: 'https://webstudio.web.tr/resimler/resimyok.png' },
     loading: false, latitude: null, longitude: null, loggedIn: false
   };
 
   async componentWillMount() {
+    this._mounted = true;
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.saveKey('@komsudapiser:lat', (position.coords.latitude));
@@ -34,7 +36,7 @@ class MyAccountForm extends Component {
     console.log(emailim);
     this.setState({ error: '', loading: true });
 
-    myURL = 'http://webstudio.web.tr/user_update_get.php' + '?email=' + emailim;
+    myURL = 'https://webstudio.web.tr/user_update_get.php' + '?email=' + emailim;
     return fetch(myURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -52,6 +54,9 @@ class MyAccountForm extends Component {
           loading: false
         })
       })
+  }
+  componentWillUnmount() {
+    this._mounted = false
   }
   async saveOturum(key, value) {
     try {
@@ -71,8 +76,8 @@ class MyAccountForm extends Component {
       this.setState({ error: 'Şifreler aynı değil' });
     } else {
       this.setState({ error: '', loading: true });
-      //myURL = 'http://webstudio.web.tr/user_update_put.php' + '?email=' + this.state.email + '&adsoyad=' + this.state.adsoyad + '&password=' + this.state.password + '&latitude=' + '' + this.state.latitude + '&longitude=' + this.state.longitude + '&password_repeat=' + this.state.password_repeat + '&rol=' + this.state.rol;
-      myURL = 'http://webstudio.web.tr/user_update_put.php';
+      //myURL = 'https://webstudio.web.tr/user_update_put.php' + '?email=' + this.state.email + '&adsoyad=' + this.state.adsoyad + '&password=' + this.state.password + '&latitude=' + '' + this.state.latitude + '&longitude=' + this.state.longitude + '&password_repeat=' + this.state.password_repeat + '&rol=' + this.state.rol;
+      myURL = 'https://webstudio.web.tr/user_update_put.php';
       const data = new FormData();
       data.append('email', this.state.email);
       data.append('adsoyad', this.state.adsoyad);
@@ -147,7 +152,7 @@ class MyAccountForm extends Component {
     if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-          <Image style={{ height: 200, width: 150 }} source={{ uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/' + this.state.email + '.jpeg' }} />
+          <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/kullaniciresmi/' + this.state.email + '.jpeg' }} />
           <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
         </TouchableOpacity>
       );

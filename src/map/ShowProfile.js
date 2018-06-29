@@ -13,8 +13,9 @@ export default class ShowProfile extends Component {
     }
     render() { 
       let pic = {
-        uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/'+ this.props.email + '.jpeg',
+        uri: 'https://webstudio.web.tr/resimler/kullaniciresmi/'+ this.props.email + '.jpeg',
       }; 
+      if (this.props.email) {
       return (
         <Card>
         <View>
@@ -29,5 +30,14 @@ export default class ShowProfile extends Component {
         </View>
         </Card>
         );
+      } else {
+        return (
+          <Card>
+          <CardSection>
+            <Text>Haritadan herhangi bir aşçı seçiniz</Text>
+            </CardSection>
+            </Card>
+        );
+      }
      }
   }

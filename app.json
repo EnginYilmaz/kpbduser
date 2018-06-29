@@ -24,7 +24,12 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.webstudiowebtr.kpbduser"
+      "package": "com.webstudiowebtr.kpbduser",
+          "config": {
+            "googleMaps": {
+                "apiKey": "AIzaSyDka4wj7t6mz4rvwRiseaHnOMSpRyKD9Kc"
+            }
+        }
     }
   }
 }

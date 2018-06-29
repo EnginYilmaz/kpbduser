@@ -40,7 +40,7 @@ class FBRegisterForm extends Component {
     //Alert.alert('button pressed');
     const { name, id, token, rol } = this.state;
       this.setState({ error: '', loading: true });
-      myURL= 'http://webstudio.web.tr/fbuser_register.php' + '?id=' + id + '&name='+name +'&token=' + token + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude + '&rol=' + rol;
+      myURL= 'https://webstudio.web.tr/fbuser_register.php' + '?id=' + id + '&name='+name +'&token=' + token + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude + '&rol=' + rol;
       //this.setState({error: myURL});
       return fetch(myURL)
       .then((response) => response.json())

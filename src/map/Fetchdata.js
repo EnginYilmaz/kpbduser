@@ -42,7 +42,7 @@ export default class Fetchdata extends Component {
   }
   componentDidMount = () => {
 
-    return fetch('http://webstudio.web.tr/user_validate.php' + '?email=' + this.getKey('@komsudapiser:email') + '&password=' + this.getKey('@komsudapiser:password'))
+    return fetch('https://webstudio.web.tr/user_validate.php' + '?email=' + this.getKey('@komsudapiser:email') + '&password=' + this.getKey('@komsudapiser:password'))
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({basari: responseJson });
@@ -65,7 +65,7 @@ export default class Fetchdata extends Component {
     );
    }
    onRegionChange (region) {
-    return fetch('http://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
+    return fetch('https://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
     .then((response) => response.json())
     .then((responseJson) => {
       if (responseJson) {
@@ -78,7 +78,7 @@ export default class Fetchdata extends Component {
     });
   }
   onRegionChangeInit (region) {
-    return fetch('http://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
+    return fetch('https://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
     .then((response) => response.json())
     .then((responseJson) => {
       if (responseJson) {

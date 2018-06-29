@@ -50,7 +50,7 @@ class Mapscreen extends Component {
     })  
   } 
   callbackMethod = (index) => {
-      return fetch('http://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
+      return fetch('https://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson) {

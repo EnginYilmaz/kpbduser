@@ -21,7 +21,7 @@ class MyPortfolio extends Component {
     console.log(emailim);
     this.setState({ error: '', loading: true });
 
-    myURL = 'http://webstudio.web.tr/profile_update_get.php' + '?email=' + emailim;
+    myURL = 'https://webstudio.web.tr/profile_update_get.php' + '?email=' + emailim;
     return fetch(myURL)  
       .then((response) => response.json())
       .then((responseJson) => {
@@ -54,7 +54,7 @@ class MyPortfolio extends Component {
     //Alert.alert(''+ this.props.longitude);
     const { email} = this.state;
     this.setState({ error: '', loading: true });
-    myURL = 'http://webstudio.web.tr/portfolio_update_put.php';
+    myURL = 'https://webstudio.web.tr/portfolio_update_put.php';
     const data = new FormData();
     data.append('email', this.state.email);
     data.append('productname', this.state.productname);
@@ -122,7 +122,7 @@ class MyPortfolio extends Component {
     if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-          <Image style={{ height: 200, width: 150 }} source={{ uri: 'http://webstudio.web.tr/resimler/portfolio/' + this.state.email + '/' + (this.state.photoid) + '.jpeg' }} />
+          <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + this.state.email + '/' + (this.state.photoid) + '.jpeg' }} />
           <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
         </TouchableOpacity>
       );

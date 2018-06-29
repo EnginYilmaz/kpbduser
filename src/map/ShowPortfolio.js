@@ -19,7 +19,7 @@ export default class ShowPortfolio extends Component {
     urunler: [],
   };
   getPortfolio() {
-    return fetch('http://webstudio.web.tr/portfolio_get_map.php' + '?email=' + this.props.email)
+    return fetch('https://webstudio.web.tr/portfolio_get_map.php' + '?email=' + this.props.email)
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -40,7 +40,7 @@ export default class ShowPortfolio extends Component {
 
           {this.state.urunler.map((urun, index) => (
             <View style={styles.tub}>
-              <Image key={index} style={{width: 50, height: 50}} source= {{ uri: 'http://webstudio.web.tr/resimler/portfolio/' + urun.resimler}} />
+              <Image key={index} style={{width: 50, height: 50}} source= {{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + urun.resimler}} />
               <Text key={index}>{urun.urunadi}</Text>
               <Text key={index} >{urun.urunaciklamasi}</Text>
             </View>

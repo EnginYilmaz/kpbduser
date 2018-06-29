@@ -22,7 +22,7 @@ export default class SendMessage extends Component {
     }
     onMessagePress () {
       this.setState({ error: '', loading: true });
-        myURL= 'http://webstudio.web.tr/send_message.php' + '?message=' + this.state.bodymessage  +'&senderid=' + this.state.eposta + '&receipentid=' + this.props.email;
+        myURL= 'https://webstudio.web.tr/send_message.php' + '?message=' + this.state.bodymessage  +'&senderid=' + this.state.eposta + '&receipentid=' + this.props.email;
         return fetch(myURL)
         .then((response) => response.json())
         .then((responseJson) => {
@@ -38,7 +38,7 @@ export default class SendMessage extends Component {
     }
     render() { 
       let pic = {
-        uri: 'http://webstudio.web.tr/resimler/kullaniciresmi/'+ this.props.email + '.jpeg',
+        uri: 'https://webstudio.web.tr/resimler/kullaniciresmi/'+ this.props.email + '.jpeg',
       };
       //Alert.alert(this.props.email);
       return (
@@ -59,8 +59,26 @@ export default class SendMessage extends Component {
                  Send Message
                 </Button>  
             </CardSection>
+            <CardSection>
+            <Text style={styles.errorTextStyle}>
+          {this.state.error}
+        </Text>
+              </CardSection>
         </View>
         </Card>
         );
      }
   }
+
+
+const styles = {
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  },
+  rolTextStyle: {
+    fontSize: 20,
+    color: 'purple'
+  }
+};
