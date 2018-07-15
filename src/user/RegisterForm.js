@@ -2,22 +2,54 @@ import React, { Component } from 'react';
 import { AsyncStorage, View,Text, Alert, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
+//1notification
+import { Permissions, Notifications } from 'expo';
+
 
 class RegisterForm extends Component {
-  state = { adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, loading: false };
+  state = { adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, loading: false, token:''};
 
   constructor (props){
     super(props);
   }
   
+  //2notification
+  async registerForPushNotificationsAsync() {
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
+    let finalStatus = existingStatus;
+  
+    // only ask if permissions have not already been determined, because
+    // iOS won't necessarily prompt the user a second time.
+    if (existingStatus !== 'granted') {
+      // Android remote notification permissions are granted during the app
+      // install, so this will only ask on iOS
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+    }
+  
+    // Stop here if the user did not grant permissions
+    if (finalStatus !== 'granted') {
+      return;
+    }
+  
+    // Get the token that uniquely identifies this device
+    let token = await Notifications.getExpoPushTokenAsync();
+    this.setState({ token: token});
+    //.alert(token);
+  }
+
   onButtonPress() {
     //Alert.alert(''+ this.props.longitude);
-    const { adsoyad, email, password, password_repeat, rol } = this.state;
+    this.registerForPushNotificationsAsync();
+
+    const { adsoyad, email, password, password_repeat, rol, token } = this.state;
     if (this.state.password != this.state.password_repeat ) {
       this.setState({error: 'Şifreler aynı değil'});
     } else {
       this.setState({ error: '', loading: true });
-      myURL= 'https://webstudio.web.tr/user_register.php' + '?email=' + email + '&adsoyad='+adsoyad +'&password=' + password + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude +'&password_repeat=' + password_repeat+ '&rol=' + rol;
+      myURL= 'https://webstudio.web.tr/user_register.php' + '?email=' + email + '&adsoyad='+adsoyad +'&password=' + password + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude +'&password_repeat=' + password_repeat+ '&rol=' + rol + '&token=' + token;
       //this.setState({error: myURL});
       return fetch(myURL)
       .then((response) => response.json())
