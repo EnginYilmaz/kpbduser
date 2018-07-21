@@ -41,6 +41,7 @@ class Mapscreen extends Component {
     super(props);
    }
   async componentDidMount() {
+    this._mounted = true;
     let lat = await AsyncStorage.getItem('@komsudapiser:lat');   
     let lng = await AsyncStorage.getItem('@komsudapiser:lng');  
     console.log (lat);
@@ -49,13 +50,18 @@ class Mapscreen extends Component {
       lng: lng 
     })  
   } 
+  componentWillUnmount() {
+    this._mounted = false
+  }
   callbackMethod = (index) => {
       return fetch('https://webstudio.web.tr/query_map_user.php' + '?uid=' + index)
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson) {
-         this.setState({adsoyad: responseJson.adsoyad, 
-                         email: responseJson.email });
+          //if (this._mounted) {
+            this.setState({adsoyad: responseJson.adsoyad, 
+                           email: responseJson.email });
+          //}
         }
       })
       .catch((error) =>{

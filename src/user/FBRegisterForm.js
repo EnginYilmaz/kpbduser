@@ -18,6 +18,7 @@ class FBRegisterForm extends Component {
     }
   }
   async componentDidMount (){
+    this._mounted = true;
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('363422077500530', {
       permissions: ['public_profile'],
     });
@@ -25,16 +26,23 @@ class FBRegisterForm extends Component {
       // Get the user's name using Facebook's Graph API
       const response = await fetch(
         `https://graph.facebook.com/me?access_token=${token}`);
-        this.setState(await response.json());
-        this.setState({token: token});
+        if (this._mounted) {
+          this.setState(await response.json());
+          this.setState({token: token});
+        }
         if (this.state.token != null ) {
           this.saveOturum('@komsudapiser:oturum','basarili');
           this.saveOturum('@komsudapiser:email', this.state.id);
           Actions.mapscreen();
         } else {
-          this.setState({error: responseJson.basari})
+          if (this._mounted) {
+            this.setState({error: responseJson.basari});
+          }
         }  
       }
+  }
+  componentWillUnmount() {
+    this._mounted = false
   }
   onButtonPress() {
     //Alert.alert('button pressed');

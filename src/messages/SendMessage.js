@@ -15,10 +15,13 @@ export default class SendMessage extends Component {
         console.log("Error retrieving data" + error);
       }
     }
-    async componentWillMount() {
+    async componentDidMount() {
+      this._mounted = true;
       const emailim = await AsyncStorage.getItem('@komsudapiser:email');
-
       this.setState( {eposta: emailim} );
+    }
+    componentWillUnmount() {
+      this._mounted = false
     }
     onMessagePress () {
       this.setState({ error: '', loading: true });
@@ -26,14 +29,18 @@ export default class SendMessage extends Component {
         return fetch(myURL)
         .then((response) => response.json())
         .then((responseJson) => {
-          
-          this.setState({error: responseJson.basari, loading: false});
-          if (responseJson.basari == true ) {
-            this.setState({error: "Başarılı bir şekilde mesajınız gönderildi"})
-          } else {
-            this.setState({error: responseJson.basari})
+          if (this._mounted) {
+            this.setState({error: responseJson.basari, loading: false});
           }
-          
+          if (responseJson.basari == true ) {
+            if (this._mounted) {
+              this.setState({error: "Başarılı bir şekilde mesajınız gönderildi"})
+            }
+          } else {
+            if (this._mounted) {
+              this.setState({error: responseJson.basari})
+            }
+          }  
         })
     }
     render() { 

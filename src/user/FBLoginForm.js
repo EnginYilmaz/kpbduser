@@ -12,28 +12,41 @@ class LoginForm extends Component {
       return fetch(myURL)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({error: responseJson.basari, loading: false});
+        if (this._mounted) {
+         this.setState({error: responseJson.basari, loading: false});
+        }
         if (responseJson.basari == true ) {
           Actions.mapscreen();
         } else {
-          this.setState({error: responseJson.basari})
+          if (this._mounted) {
+            this.setState({error: responseJson.basari})
+          }
         }
       })
   }
 
   onLoginFail() {
-    this.setState({ error: 'Oturum açma başarısız', loading: false });
+    if (this._mounted) {
+      this.setState({ error: 'Oturum açma başarısız', loading: false });
+    }
   }
 
   onLoginSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: ''
-    });
+    if (this._mounted) {
+      this.setState({
+        email: '',
+        password: '',
+        loading: false,
+        error: ''
+      });
+    }
   }
-  
+  componentDidMount() {
+    this._mounted = true;
+  }
+  componentWillUnmount() {
+    this._mounted = false;
+  }
   renderButton() {
     if (this.state.loading) {
       return <Spinner size="small" />;

@@ -14,34 +14,49 @@ class LoginForm extends Component {
     }
   }
   onButtonPress() {
-
     const { email, password } = this.state;
-    this.setState({ error: '', loading: true });
-      myURL= 'https://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
-      return fetch(myURL)
-      .then((response) => response.json())
-      .then((responseJson) => {
+    if (this._mounted) {
+      this.setState({ error: '', loading: true });
+    }
+    myURL= 'https://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
+    return fetch(myURL)
+    .then((response) => response.json())
+    .then((responseJson) => {
+      if (this._mounted) {
         this.setState({error: responseJson.basari, loading: false});
-        if (responseJson.basari == true ) {
-          this.saveOturum('@komsudapiser:oturum','basarili');
-          this.saveOturum('@komsudapiser:email', email);
-          Actions.mapscreen();
-        } else {
-          this.setState({error: responseJson.basari})
+      }
+      if (responseJson.basari == true ) {
+        this.saveOturum('@komsudapiser:oturum','basarili');
+        this.saveOturum('@komsudapiser:email', email);
+        Actions.mapscreen();
+      } else {
+        if (this._mounted) {
+          this.setState({error: responseJson.basari});
         }
-      })
+      }
+    })
+  }
+  componentDidMount () {
+    this._mounted = true;
+  }
+  componentWillUnmount() {
+    this._mounted = false;
   }
   onLoginFail() {
-    this.setState({ error: 'Oturum açma başarısız', loading: false });
+    if (this._mounted) {
+      this.setState({ error: 'Oturum açma başarısız', loading: false });
+    }
   }
 
   onLoginSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: ''
-    });
+    if (this._mounted) {
+      this.setState({
+        email: '',
+        password: '',
+        loading: false,
+        error: ''
+      });
+    }
   }
   
   renderButton() {
@@ -51,7 +66,7 @@ class LoginForm extends Component {
 
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Login
+        Giriş
       </Button>
     );
   }
@@ -87,12 +102,12 @@ class LoginForm extends Component {
         </CardSection>
         <CardSection>
           <Button onPress={Actions.plainregister}>
-            Register
+            Kaydol
            </Button>
         </CardSection>
         <CardSection>
           <Button onPress={Actions.fbregister}>
-            Register with Facebook
+            Facebook ile kaydol
            </Button>
         </CardSection>        
       </Card>

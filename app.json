@@ -1,12 +1,12 @@
 {
   "expo": {
     "name": "kpbduser",
-    "description": "Cooked on your neighbourhood than you have a slice. Good deal",
+    "description": "Cooked on your neighbourhood than you can buy a slice. Good deal",
     "slug": "kpbduser",
     "privacy": "public",
     "sdkVersion": "27.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,6 +24,7 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 4,
       "package": "com.webstudiowebtr.kpbduser",
           "config": {
             "googleMaps": {

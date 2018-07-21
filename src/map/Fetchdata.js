@@ -26,39 +26,47 @@ export default class Fetchdata extends Component {
   };
  
   async getKey(key) {
-    try {
-      this.value = await AsyncStorage.getItem(key);
-    } catch (error) {
-      console.log("Error retrieving data" + error);
+    if (this._mounted) {
+      try {
+        this.value = await AsyncStorage.getItem(key);
+      } catch (error) {
+        console.log("Error retrieving data" + error);
+      }
     }
   }
-
+  componentWillUnmount() {
+    this._mounted = false;
+  }
   async saveKey(key,value) {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (error) {
-      console.log("Error saving data" + error);
+    if (this._mounted) {
+      try {
+        await AsyncStorage.setItem(key, value);
+      } catch (error) {
+        console.log("Error saving data" + error);
+      }
     }
   }
   componentDidMount = () => {
-
+    this._mounted = true;
     return fetch('https://webstudio.web.tr/user_validate.php' + '?email=' + this.getKey('@komsudapiser:email') + '&password=' + this.getKey('@komsudapiser:password'))
     .then((response) => response.json())
     .then((responseJson) => {
-      this.setState({basari: responseJson });
+      if (this._mounted) {
+        this.setState({basari: responseJson });
+      }
     })
     .catch((error) =>{
       console.error(error);
     });
     navigator.geolocation.getCurrentPosition(
         (position) => {
-          this.setState({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            error: null,
-         });
-         //this.onRegionChangeInit (position.coords);
-
+          if (this._mounted) {
+            this.setState({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              error: null,
+          });
+         }
     },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
@@ -69,7 +77,9 @@ export default class Fetchdata extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       if (responseJson) {
-       this.setState({markers: responseJson });
+        if (this._mounted) {
+          this.setState({markers: responseJson });
+        }
       }
 
     })
@@ -82,7 +92,9 @@ export default class Fetchdata extends Component {
     .then((response) => response.json())
     .then((responseJson) => {
       if (responseJson) {
-       this.setState({markers: responseJson });
+        if (this._mounted) {
+          this.setState({markers: responseJson });
+        }
       }
 
     })
@@ -112,7 +124,7 @@ export default class Fetchdata extends Component {
             onRegionChange={this.onRegionChange.bind(this)}
             >
             {this.state.markers.map((marker, index) => (
-              <MapView.Marker key={marker.index} coordinate={marker.latlng} title={marker.title} onPress={e => this.onPressMarker(marker.index)}/>
+              <Marker key={index} coordinate={marker.latlng} title={marker.title} onPress={e => this.onPressMarker(marker.index)}/>
             ))}
 
           </MapView>

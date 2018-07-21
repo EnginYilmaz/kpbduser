@@ -16,7 +16,8 @@ class MyPortfolio extends Component {
     loading: false,
   };
   
-  async componentWillMount() {
+  async componentDidMount() {
+    this._mounted = true;
     const emailim = await AsyncStorage.getItem('@komsudapiser:email');
     console.log(emailim);
     this.setState({ error: '', loading: true });
@@ -30,13 +31,18 @@ class MyPortfolio extends Component {
         if (responseJson.rol == "asci") {
           rolum = true;
         }
-        this.setState({
-          resimurl: responseJson.resimurl,
-          email: responseJson.email,
-          rol: rolum,
-          loading: false,
-        })
+        if (this._mounted) {
+          this.setState({
+            resimurl: responseJson.resimurl,
+            email: responseJson.email,
+            rol: rolum,
+            loading: false,
+          });
+        }
       })
+  }
+  componentWillUnmount() {
+    this._mounted = false
   }
   async saveOturum(key, value) {
     try {
@@ -72,11 +78,15 @@ class MyPortfolio extends Component {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({ error: responseJson.basari, loading: false });
+        if (this._mounted) {
+          this.setState({ error: responseJson.basari, loading: false });
+        }
         if (responseJson.basari == true) {
           //Alert.alert("kayit basarili");
         } else {
-          this.setState({ error: responseJson.basari });
+          if (this._mounted) {
+           this.setState({ error: responseJson.basari });
+          }
           //Alert.alert(responseJson.basari);
         }
       })
@@ -102,7 +112,7 @@ class MyPortfolio extends Component {
 
     return (
       <Button onPress={this.onGuncellePress.bind(this)}>
-        Update
+        Kaydet
       </Button>
     );
   }
@@ -123,7 +133,7 @@ class MyPortfolio extends Component {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
           <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + this.state.email + '/' + (this.state.photoid) + '.jpeg' }} />
-          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
+          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Kek resmi çek</Text>
         </TouchableOpacity>
       );
 
@@ -131,7 +141,7 @@ class MyPortfolio extends Component {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
           <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.userpicture }} />
-          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
+          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Kek resmi çek</Text>
         </TouchableOpacity>
       );
     }
@@ -148,14 +158,14 @@ class MyPortfolio extends Component {
           </CardSection>
           <CardSection>
           <Input
-            label="Product name"
+            label="Kek türü"
             value={this.state.productname}
             onChangeText={productname => this.setState({ productname })}
           />
           </CardSection>
           <CardSection>
           <Minput
-            label="Product description"
+            label="Ayrıntılar"
             value={this.state.productdescription}
             onChangeText={productdescription => this.setState({ productdescription })}
           />

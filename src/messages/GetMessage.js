@@ -31,16 +31,16 @@ export default class GetMessage extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         if(this._mounted) {
-
-        this.setState({
-          messages: responseJson
-        });
-      }
+          this.setState({
+            messages: responseJson
+          });
+        }
       })
       .catch((error) => {
         console.error(error);
       });
   }
+  
   componentWillUnmount() {
     this._mounted = false
   }

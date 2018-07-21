@@ -18,13 +18,21 @@ export default class ShowPortfolio extends Component {
     email: null,
     urunler: [],
   };
+  async componentDidMount() {
+    this._mounted = true;
+  }
+  componentWillUnmount() {
+    this._mounted = false
+  }
   getPortfolio() {
     return fetch('https://webstudio.web.tr/portfolio_get_map.php' + '?email=' + this.props.email)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({
-          urunler: responseJson
-        });
+        if (this._mounted) {
+         this.setState({
+           urunler: responseJson
+         });
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -39,7 +47,7 @@ export default class ShowPortfolio extends Component {
           <StatusBar hidden={true} />
 
           {this.state.urunler.map((urun, index) => (
-            <View style={styles.tub}>
+            <View key={index} style={styles.tub}>
               <Image key={index} style={{width: 50, height: 50}} source= {{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + urun.resimler}} />
               <Text key={index}>{urun.urunadi}</Text>
               <Text key={index} >{urun.urunaciklamasi}</Text>

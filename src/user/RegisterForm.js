@@ -7,6 +7,9 @@ import { Permissions, Notifications } from 'expo';
 
 
 class RegisterForm extends Component {
+  async componentDidMount() {
+    this._mounted = true;
+  }
   state = { adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, loading: false, token:''};
 
   constructor (props){
@@ -39,7 +42,9 @@ class RegisterForm extends Component {
     this.setState({ token: token});
     //.alert(token);
   }
-
+  componentWillUnmount() {
+    this._mounted = false
+  }
   onButtonPress() {
     //Alert.alert(''+ this.props.longitude);
     this.registerForPushNotificationsAsync();
@@ -54,15 +59,17 @@ class RegisterForm extends Component {
       return fetch(myURL)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({error: responseJson.basari, loading: false});
-        this.saveKey('@komsudapiser:email', email);
-        this.saveKey('@komsudapiser:password', password);
-        //this.saveKey('@komsudapiser:lat', latitude);
-        //this.saveKey('@komsudapiser:lng', longitude);
-        if (responseJson.basari == true ) {
-          Actions.mapscreen();
-        } else {
-          this.setState({error: responseJson.basari});
+        if(this._mounted) {
+          this.setState({error: responseJson.basari, loading: false});
+          this.saveKey('@komsudapiser:email', email);
+          this.saveKey('@komsudapiser:password', password);
+          //this.saveKey('@komsudapiser:lat', latitude);
+          //this.saveKey('@komsudapiser:lng', longitude);
+          if (responseJson.basari == true ) {
+            Actions.mapscreen();
+          } else {
+            this.setState({error: responseJson.basari});
+          }
         }
       })
     }
@@ -87,12 +94,14 @@ class RegisterForm extends Component {
   }
 
   onLoginSuccess() {
-    this.setState({
-      email: '',
-      password: '',
-      loading: false,
-      error: ''
-    });
+    if(this._mounted) {
+      this.setState({
+        email: '',
+        password: '',
+        loading: false,
+        error: ''
+      });
+    }
     Alert.alert("başarılı bir şekilde login oldu");
   }
 

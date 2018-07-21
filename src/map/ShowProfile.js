@@ -24,7 +24,7 @@ export default class ShowProfile extends Component {
           <Text>{this.props.adsoyad}</Text>
           <CardSection>
           <Button onPress={this.onMessagePress.bind(this)}>
-            Message
+            Mesaj gönder
           </Button>     
           </CardSection>     
         </View>

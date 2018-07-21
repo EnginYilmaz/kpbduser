@@ -38,7 +38,7 @@ export default class CameraPortfolioScreen extends React.Component {
     permissionsGranted: true,
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ permissionsGranted: status === 'granted' });
   }
