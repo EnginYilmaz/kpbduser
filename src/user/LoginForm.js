@@ -28,7 +28,9 @@ class LoginForm extends Component {
       if (responseJson.basari == true ) {
         this.saveOturum('@komsudapiser:oturum','basarili');
         this.saveOturum('@komsudapiser:email', email);
-        Actions.mapscreen();
+        if (this._mounted) {
+          Actions.mapscreen();
+        }
       } else {
         if (this._mounted) {
           this.setState({error: responseJson.basari});

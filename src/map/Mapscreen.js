@@ -45,10 +45,12 @@ class Mapscreen extends Component {
     let lat = await AsyncStorage.getItem('@komsudapiser:lat');   
     let lng = await AsyncStorage.getItem('@komsudapiser:lng');  
     console.log (lat);
-    this.setState({ 
-      lat: lat,
-      lng: lng 
-    })  
+    if (this._mounted) {
+      this.setState({ 
+        lat: lat,
+        lng: lng 
+      });
+    }
   } 
   componentWillUnmount() {
     this._mounted = false
@@ -58,10 +60,10 @@ class Mapscreen extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson) {
-          //if (this._mounted) {
+          if (this._mounted) {
             this.setState({adsoyad: responseJson.adsoyad, 
                            email: responseJson.email });
-          //}
+          }
         }
       })
       .catch((error) =>{
