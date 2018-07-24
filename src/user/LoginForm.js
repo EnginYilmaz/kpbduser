@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text,AsyncStorage } from 'react-native';
+import { Text,AsyncStorage, Alert } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 
@@ -15,10 +15,12 @@ class LoginForm extends Component {
   }
   onButtonPress() {
     const { email, password } = this.state;
-    if (this._mounted) {
+    //if (this._mounted) {
       this.setState({ error: '', loading: true });
-    }
+    //}
     myURL= 'https://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
+    Alert.alert(myURL);
+    
     return fetch(myURL)
     .then((response) => response.json())
     .then((responseJson) => {
@@ -37,6 +39,7 @@ class LoginForm extends Component {
         }
       }
     })
+    
   }
   componentDidMount () {
     this._mounted = true;

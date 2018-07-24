@@ -14,7 +14,7 @@ class Plainlogin extends Component {
       oturum: oturum,
     });
     if (this.state.oturum == 'basarili') {
-      Actions.mapscreen();
+      //Actions.mapscreen();
     }
     //Alert.alert(lat);
   }
