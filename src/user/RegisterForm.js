@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View,Text, Alert, Switch } from 'react-native';
+import { AsyncStorage, Text, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 //1notification
@@ -40,7 +40,7 @@ class RegisterForm extends Component {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
     this.setState({ token: token});
-    //.alert(token);
+    //Alert.alert(token);
   }
   componentWillUnmount() {
     this._mounted = false
@@ -102,7 +102,7 @@ class RegisterForm extends Component {
         error: ''
       });
     }
-    Alert.alert("başarılı bir şekilde login oldu");
+    //Alert.alert("başarılı bir şekilde login oldu");
   }
 
   renderButton() {

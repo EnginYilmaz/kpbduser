@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry  } from 'react-native';
-import MapView from 'react-native-maps';
+import { AsyncStorage, View, StyleSheet  } from 'react-native';
 import Fetchdata from './Fetchdata.js';
 import ShowProfile from './ShowProfile.js';
 import ShowPortfolio from './ShowPortfolio.js';

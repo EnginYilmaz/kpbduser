@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import { Scene, Router, Actions, Reducer, ActionConst, Overlay, Tabs, Modal, Drawer, Stack, Lightbox } from 'react-native-router-flux';
+import { Scene, Router, Drawer} from 'react-native-router-flux';
 import Plainlogin from './src/user/Plainlogin.js';
 import Mapscreen from './src/map/Mapscreen.js';
-import Mainpage from './src/user/Mainpage.js';
 import FBRegister from './src/user/FBRegister.js';
-import FBLogin from './src/user/FBLogin.js';
 import MyAccountForm from './src/user/MyAccountForm.js';
 import Plainregister from './src/user/Plainregister.js';
 import MyPortfolio from './src/portfolio/MyPortfolio.js';
 import MyMessages from './src/messages/GetMessage.js';
-
-import { AppRegistry, View, Text, AsyncStorage, StatusBar, Alert } from 'react-native';
+import { View, Text, AsyncStorage} from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import SendMessage from './src/messages/SendMessage.js';
-
 import HamburgerMenu from './src/HamburgerMenu.js';
-
 import MenuIcon from './images/menu_burger.png';
 
 export default class RouterComponent extends Component {
@@ -46,7 +41,7 @@ export default class RouterComponent extends Component {
   };
   render() {
     if (this.state.loading) {
-      return <View><Text>Loading...</Text></View>;
+      return <View><Text>Oturum açılıyor...</Text></View>;
     }
 
     if (this.state.logged == true) {

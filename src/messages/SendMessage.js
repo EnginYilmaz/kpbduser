@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Text, View, StyleSheet, Switch, AppRegistry, StatusBar, Image, Alert} from 'react-native'
-import { Actions } from 'react-native-router-flux';
+import { AsyncStorage, Text, View,StatusBar, Image} from 'react-native'
 import { Button, Card, CardSection, Minput} from '../user/common';
 
 export default class SendMessage extends Component {

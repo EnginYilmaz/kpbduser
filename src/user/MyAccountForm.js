@@ -1,9 +1,8 @@
 import React, { Component, } from 'react';
-import { StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
+import { StatusBar, AsyncStorage, View, Text, Alert, Switch, Image, TouchableOpacity} from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
-import { ImagePicker } from 'expo';
-import { Constants, Camera, FileSystem, Permissions } from 'expo';
+
 
 class MyAccountForm extends Component {
 
@@ -113,7 +112,7 @@ class MyAccountForm extends Component {
           .then((responseJson) => {
             this.setState({ error: responseJson.basari, loading: false });
             if (responseJson.basari == true) {
-              Alert.alert("kayit basarili");
+              //Alert.alert("kayit basarili");
             } else {
               this.setState({ error: responseJson.basari });
             }

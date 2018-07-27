@@ -1,6 +1,6 @@
 import { Constants, Camera, FileSystem, Permissions } from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Slider, Vibration } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Slider } from 'react-native';
 import isIPhoneX from 'react-native-is-iphonex';
 import { Actions } from 'react-native-router-flux';
 

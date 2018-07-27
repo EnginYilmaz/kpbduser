@@ -1,9 +1,7 @@
 import React, { Component, } from 'react';
-import { StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
+import { StatusBar, AsyncStorage, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Button, Card, CardSection, Input, Minput, Spinner } from '../user/common';
 import { Actions } from 'react-native-router-flux';
-import { ImagePicker } from 'expo';
-import { Constants, Camera, FileSystem, Permissions } from 'expo';
 
 class MyPortfolio extends Component {
 

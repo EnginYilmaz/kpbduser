@@ -1,20 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, ViewPropTypes, Alert } from 'react-native';
+import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import Button from 'react-native-button';
-import {
-    Scene,
-    Router,
-    Actions,
-    Reducer,
-    ActionConst,
-    Overlay,
-    Tabs,
-    Modal,
-    Drawer,
-    Stack,
-    Lightbox,
-} from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -93,7 +82,7 @@ class HamburgerMenu extends React.Component {
                 <Button style={styles.myaccount} onPress={Actions.myaccount}>Hesabım</Button>
                 <Button style={styles.mymessages} onPress={Actions.messages}>Mesajlarım</Button>
                 <Button style={styles.portfolio} onPress={Actions.portfolio}>Yeni kek!</Button>
-                <Button style={styles.map} onPress={Actions.mapscreen}>Harita</Button>
+                <Button style={styles.map} onPress={Actions.mapscreen}>Haritada kek</Button>
             </View>
         );
     }

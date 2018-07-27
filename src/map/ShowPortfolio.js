@@ -1,7 +1,5 @@
-
 import React, { Component } from 'react'
-import { AsyncStorage, Text, View, StyleSheet, Switch, AppRegistry, StatusBar, Image } from 'react-native'
-import { Actions } from 'react-native-router-flux';
+import {Text, View, StyleSheet, StatusBar, Image } from 'react-native'
 
 const styles = StyleSheet.create({
   container: {

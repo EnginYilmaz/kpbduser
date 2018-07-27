@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View,Text, StatusBar } from 'react-native';
+import { AsyncStorage, View, StatusBar } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import LoginForm from './LoginForm.js';
-import { Actions } from 'react-native-router-flux';
 
 class Plainlogin extends Component {
   state = { loggedIn: false, oturum: false };

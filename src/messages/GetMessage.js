@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
-import { AsyncStorage, Text, View, StyleSheet, Switch, AppRegistry, StatusBar, Image, Alert, ScrollView } from 'react-native'
-import { Actions } from 'react-native-router-flux';
+import { AsyncStorage, Text, View, StyleSheet, StatusBar, ScrollView } from 'react-native'
 import { Button, Card, CardSection, Minput } from '../user/common';
 
 const styles = StyleSheet.create({

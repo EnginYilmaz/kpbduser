@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, AsyncStorage, View } from 'react-native';
+import { AsyncStorage, View } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import RegisterForm from './RegisterForm.js';
 
