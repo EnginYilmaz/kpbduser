@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, Text, Switch } from 'react-native';
 import { Button, Card, CardSection, Spinner,Fbinput } from './common';
 import { Actions } from 'react-native-router-flux';
+import I18n from 'ex-react-native-i18n';
 
 
 class FBRegisterForm extends Component {
@@ -110,7 +111,7 @@ class FBRegisterForm extends Component {
       <Card>
         <CardSection>
           <Fbinput
-            placeholder="Ad Soyad"
+            placeholder={I18n.t('i18n_full_name')}
             label="Tam isim"
             value={this.state.name}
             onChangeText={name => this.setState({ name })}

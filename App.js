@@ -107,17 +107,15 @@ I18n.translations = {
     i18n_cake_style: 'Cake style',
     i18n_cake_details: 'Cake details',
     i18n_message_body: 'Your message',
-  },
-  'tr': {
-    i18n_myaccount: 'Hesabım',
-    i18n_messages: 'Mesajlarım',
-    i18n_newcake: 'Yeni kek!',
-    i18n_cakeonthemaps: 'Haritalarda kek',
-    i18n_sendmessage: 'Mesaj gönder',
-    i18n_select_cooker: 'Haritadan bir aşçı seçiniz',
-    i18n_shot_cake_photo: 'Kek resmi çek',
-    i18n_cake_style: 'Kek türü',
-    i18n_cake_details: 'Detaylar',
-    i18n_message_body: 'Mesajınız',
+    i18n_shot_your_photo: 'Shot your photo',
+    i18n_full_name: 'Full name',
+    i18n_email: 'E-mail',
+    i18n_password: 'Password',
+    i18n_password_repeat: 'Password repeat',
+    i18n_cake_master: 'I am a cake master\n(let me shown on the maps)',
+    i18n_logout: 'Logout',
+    i18n_update: 'UPdate my information',
+
+
   }
 }

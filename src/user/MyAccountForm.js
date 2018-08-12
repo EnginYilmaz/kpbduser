@@ -1,7 +1,8 @@
 import React, { Component, } from 'react';
-import { StatusBar, AsyncStorage, View, Text, Alert, Switch, Image, TouchableOpacity} from 'react-native';
+import { StatusBar, AsyncStorage, View, Text, Alert, Switch, Image, TouchableOpacity } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
+import I18n from 'ex-react-native-i18n';
 
 
 class MyAccountForm extends Component {
@@ -188,7 +189,7 @@ class MyAccountForm extends Component {
         return (
           <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
             <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/kullaniciresmi/' + this.state.email + '.jpeg' }} />
-            <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
+            <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_your_photo')}</Text>
           </TouchableOpacity>
         );
 
@@ -196,7 +197,7 @@ class MyAccountForm extends Component {
         return (
           <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
             <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.userpicture }} />
-            <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Fotoğrafınızı çekin</Text>
+            <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_your_photo')}</Text>
           </TouchableOpacity>
         );
       }
@@ -204,71 +205,71 @@ class MyAccountForm extends Component {
   }
 
   render() {
-      return (
-        <View>
-          <StatusBar hidden={true} />
+    return (
+      <View>
+        <StatusBar hidden={true} />
 
-          <Card>
-            {this.PhotoSection()}
-            <CardSection>
-              <Input
-                label="Ad Soyad"
-                value={this.state.adsoyad}
-                onChangeText={adsoyad => this.setState({ adsoyad })}
-              />
-            </CardSection>
-            <CardSection>
-              <Input
-                label="E-Posta"
-                value={this.state.email}
-                onChangeText={email => this.setState({ email })}
-              />
-            </CardSection>
+        <Card>
+          {this.PhotoSection()}
+          <CardSection>
+            <Input
+              label={I18n.t('i18n_full_name')}
+              value={this.state.adsoyad}
+              onChangeText={adsoyad => this.setState({ adsoyad })}
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              label={I18n.t('i18n_email')}
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
+            />
+          </CardSection>
 
-            <CardSection>
-              <Input
-                secureTextEntry
-                label="Şifre"
-                value={this.state.password}
-                onChangeText={password => this.setState({ password })}
-              />
-            </CardSection>
-            <CardSection>
-              <Input
-                secureTextEntry
-                label="Şifre tekrar"
-                value={this.state.password_repeat}
-                onChangeText={password_repeat => this.setState({ password_repeat })}
-              />
-            </CardSection>
+          <CardSection>
+            <Input
+              secureTextEntry
+              label={I18n.t('i18n_password')}
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })}
+            />
+          </CardSection>
+          <CardSection>
+            <Input
+              secureTextEntry
+              label={I18n.t('i18n_password_repeat')}
+              value={this.state.password_repeat}
+              onChangeText={password_repeat => this.setState({ password_repeat })}
+            />
+          </CardSection>
 
+          <CardSection>
             <CardSection>
-              <CardSection>
-                <Text style={styles.rolTextStyle}>
-                  Beni pastacı olarak haritada listele
+              <Text style={styles.rolTextStyle}>
+                {I18n.t('i18n_cake_master')}
               </Text>
-              </CardSection>
-              <Switch
-                onValueChange={rol => this.setState({ rol })}
-                value={this.state.rol} />
             </CardSection>
+            <Switch
+              onValueChange={rol => this.setState({ rol })}
+              value={this.state.rol} />
+          </CardSection>
 
-            <Text style={styles.errorTextStyle}>
-              {this.state.error}
-            </Text>
+          <Text style={styles.errorTextStyle}>
+            {this.state.error}
+          </Text>
 
-            <CardSection>
-              {this.renderLogoutButton()}
-            </CardSection>
+          <CardSection>
+            {this.renderLogoutButton()}
+          </CardSection>
 
-            <CardSection>
-              {this.renderRefreshButton()}
-            </CardSection>
+          <CardSection>
+            {this.renderRefreshButton()}
+          </CardSection>
 
-          </Card >
-        </View>
-      );
-    }
+        </Card >
+      </View>
+    );
+  }
 }
 
 const styles = {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { AsyncStorage, Text, View,StatusBar, Image} from 'react-native'
 import { Button, Card, CardSection, Minput} from '../user/common';
+import I18n from 'ex-react-native-i18n';
 
 export default class SendMessage extends Component {
     state = {
@@ -66,14 +67,14 @@ export default class SendMessage extends Component {
           <Text>{this.props.adsoyad}</Text>
           <CardSection>
           <Minput
-            label="Your message"
+            label={I18n.t('i18n_message_body')}
             value={this.state.bodymessage}
             onChangeText={bodymessage => this.setState({ bodymessage })}
           />
           </CardSection>
             <CardSection>
                 <Button onPress={this.onMessagePress.bind(this)}>
-                 Send Message
+                {I18n.t('i18n_sendmessage')}
                 </Button>  
             </CardSection>
             <CardSection>
@@ -86,7 +87,6 @@ export default class SendMessage extends Component {
         );
      }
   }
-
 
 const styles = {
   errorTextStyle: {

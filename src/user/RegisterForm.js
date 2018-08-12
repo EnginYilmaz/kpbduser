@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { AsyncStorage, Text, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
-//1notification
 import { Permissions, Notifications } from 'expo';
+import I18n from 'ex-react-native-i18n';
 
 
 class RegisterForm extends Component {
@@ -135,7 +135,7 @@ class RegisterForm extends Component {
       <Card>
         <CardSection>
           <Input
-            placeholder="Ad Soyad"
+            placeholder={I18n.t('i18n_full_name')}
             label="Tam isim"
             value={this.state.adsoyad}
             onChangeText={adsoyad => this.setState({ adsoyad })}
