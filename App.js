@@ -114,8 +114,6 @@ I18n.translations = {
     i18n_password_repeat: 'Password repeat',
     i18n_cake_master: 'I am a cake master\n(let me shown on the maps)',
     i18n_logout: 'Logout',
-    i18n_update: 'UPdate my information',
-
-
+    i18n_update: 'Update my informations',
   }
 }

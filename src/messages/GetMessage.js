@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react'
 import { AsyncStorage, Text, View, StyleSheet, StatusBar, ScrollView } from 'react-native'
-import { Button, Card, CardSection, Minput } from '../user/common';
+import { Card, CardSection } from '../user/common';
 
 const styles = StyleSheet.create({
   container: {

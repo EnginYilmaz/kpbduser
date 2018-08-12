@@ -165,7 +165,7 @@ class MyAccountForm extends Component {
 
       return (
         <Button onPress={this.onGuncellePress.bind(this)}>
-          Güncelle
+          {I18n.t('i18n_update')}
         </Button>
       );
     }
@@ -177,7 +177,7 @@ class MyAccountForm extends Component {
       }
       return (
         <Button onPress={this.onCikisPress.bind(this)}>
-          Çıkış yap
+          {I18n.t('i18n_logout')}
         </Button>
       );
     }
