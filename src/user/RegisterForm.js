@@ -56,7 +56,18 @@ class RegisterForm extends Component {
       this.setState({ error: '', loading: true });
       myURL= 'https://webstudio.web.tr/user_register.php' + '?email=' + email + '&adsoyad='+adsoyad +'&password=' + password + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude +'&password_repeat=' + password_repeat+ '&rol=' + rol + '&token=' + token;
       //this.setState({error: myURL});
-      return fetch(myURL)
+      return fetch(myURL, {
+        method: "GET",
+        mode: "cors",
+        cache: "force-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Encoding": "zlib",
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+      })
       .then((response) => response.json())
       .then((responseJson) => {
         if(this._mounted) {

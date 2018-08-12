@@ -25,7 +25,18 @@ export default class SendMessage extends Component {
     onMessagePress () {
       this.setState({ error: '', loading: true });
         myURL= 'https://webstudio.web.tr/send_message.php' + '?message=' + this.state.bodymessage  +'&senderid=' + this.state.eposta + '&receipentid=' + this.props.email;
-        return fetch(myURL)
+        return fetch(myURL, {
+          method: "GET",
+          mode: "cors",
+          cache: "force-cache",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Content-Encoding": "zlib",
+          },
+          redirect: "follow",
+          referrer: "no-referrer",
+        })
         .then((response) => response.json())
         .then((responseJson) => {
           if (this._mounted) {

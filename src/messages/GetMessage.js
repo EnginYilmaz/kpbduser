@@ -26,7 +26,18 @@ export default class GetMessage extends Component {
     if(this._mounted) {
     this.setState({ error: '', loading: true });
     }
-    return fetch('https://webstudio.web.tr/get_message.php' + '?email=' + emailim)
+    return fetch('https://webstudio.web.tr/get_message.php' + '?email=' + emailim, {
+      method: "GET",
+      mode: "cors",
+      cache: "force-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "zlib",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         if(this._mounted) {

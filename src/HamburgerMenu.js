@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import Button from 'react-native-button';
 import {Actions} from 'react-native-router-flux';
+import I18n from 'ex-react-native-i18n';
 
 
 const styles = StyleSheet.create({
@@ -79,10 +80,10 @@ class HamburgerMenu extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Button style={styles.myaccount} onPress={Actions.myaccount}>Hesabım</Button>
-                <Button style={styles.mymessages} onPress={Actions.messages}>Mesajlarım</Button>
-                <Button style={styles.portfolio} onPress={Actions.portfolio}>Yeni kek!</Button>
-                <Button style={styles.map} onPress={Actions.mapscreen}>Haritada kek</Button>
+                <Button style={styles.myaccount} onPress={Actions.myaccount}>{I18n.t('i18n_myaccount')}</Button>
+                <Button style={styles.mymessages} onPress={Actions.messages}>{I18n.t('i18n_messages')}</Button>
+                <Button style={styles.portfolio} onPress={Actions.portfolio}>{I18n.t('i18n_newcake')}</Button>
+                <Button style={styles.map} onPress={Actions.mapscreen}>{I18n.t('i18n_cakeonthemaps')}</Button>
             </View>
         );
     }

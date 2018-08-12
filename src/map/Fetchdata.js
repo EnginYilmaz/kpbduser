@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry, StatusBar} from 'react-native'
 import MapView, {Marker, ProviderPropType} from 'react-native-maps';
-import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +47,18 @@ export default class Fetchdata extends Component {
   }
   componentDidMount = () => {
     this._mounted = true;
-    return fetch('https://webstudio.web.tr/user_validate.php' + '?email=' + this.getKey('@komsudapiser:email') + '&password=' + this.getKey('@komsudapiser:password'))
+    return fetch('https://webstudio.web.tr/user_validate.php' + '?email=' + this.getKey('@komsudapiser:email') + '&password=' + this.getKey('@komsudapiser:password'), {
+      method: "GET",
+      mode: "cors",
+      cache: "force-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "zlib",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+    })
     .then((response) => response.json())
     .then((responseJson) => {
       if (this._mounted) {
@@ -73,7 +83,18 @@ export default class Fetchdata extends Component {
     );
    }
    onRegionChange (region) {
-    return fetch('https://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
+    return fetch('https://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude, {
+      method: "GET",
+      mode: "cors",
+      cache: "force-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "zlib",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+    })
     .then((response) => response.json())
     .then((responseJson) => {
       if (responseJson) {
@@ -87,21 +108,7 @@ export default class Fetchdata extends Component {
       console.error(error);
     });
   }
-  onRegionChangeInit (region) {
-    return fetch('https://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude)
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if (responseJson) {
-        if (this._mounted) {
-          this.setState({markers: responseJson });
-        }
-      }
-
-    })
-    .catch((error) =>{
-      console.error(error);
-    });
-  }
+ 
   onPressMarker(index) {
     this.props.callbackMethod(index);
   }

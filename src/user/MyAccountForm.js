@@ -37,7 +37,18 @@ class MyAccountForm extends Component {
       this.setState({ error: '', loading: true });
 
       myURL = 'https://webstudio.web.tr/user_update_get.php' + '?email=' + emailim;
-      return fetch(myURL)
+      return fetch(myURL, {
+        method: "GET",
+        mode: "cors",
+        cache: "force-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Encoding": "zlib",
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+      })
         .then((response) => response.json())
         .then((responseJson) => {
           if (this._mounted) {

@@ -13,6 +13,7 @@ import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import SendMessage from './src/messages/SendMessage.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
 import MenuIcon from './images/menu_burger.png';
+import I18n from 'ex-react-native-i18n';
 
 export default class RouterComponent extends Component {
   constructor(props, context) {
@@ -90,3 +91,33 @@ export default class RouterComponent extends Component {
 
   }
 };
+
+// Enable fallbacks if you want `en-US` and `en-GB` to fallback to `en`
+I18n.fallbacks = true
+
+I18n.translations = {
+  'en': {
+    i18n_myaccount: 'My account',
+    i18n_messages: 'My messages',
+    i18n_newcake: 'New cake!',
+    i18n_cakeonthemaps: 'Cake on the maps!',
+    i18n_sendmessage: 'Send Message',
+    i18n_select_cooker: 'Select a cooker on the map',
+    i18n_shot_cake_photo: 'Shot cake photo',
+    i18n_cake_style: 'Cake style',
+    i18n_cake_details: 'Cake details',
+    i18n_message_body: 'Your message',
+  },
+  'tr': {
+    i18n_myaccount: 'Hesabım',
+    i18n_messages: 'Mesajlarım',
+    i18n_newcake: 'Yeni kek!',
+    i18n_cakeonthemaps: 'Haritalarda kek',
+    i18n_sendmessage: 'Mesaj gönder',
+    i18n_select_cooker: 'Haritadan bir aşçı seçiniz',
+    i18n_shot_cake_photo: 'Kek resmi çek',
+    i18n_cake_style: 'Kek türü',
+    i18n_cake_details: 'Detaylar',
+    i18n_message_body: 'Mesajınız',
+  }
+}

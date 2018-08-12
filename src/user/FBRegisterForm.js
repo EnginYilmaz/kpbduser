@@ -50,7 +50,18 @@ class FBRegisterForm extends Component {
       this.setState({ error: '', loading: true });
       myURL= 'https://webstudio.web.tr/fbuser_register.php' + '?id=' + id + '&name='+name +'&token=' + token + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude + '&rol=' + rol;
       //this.setState({error: myURL});
-      return fetch(myURL)
+      return fetch(myURL, {
+        method: "GET",
+        mode: "cors",
+        cache: "force-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Content-Encoding": "zlib",
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+      })
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({error: responseJson.basari, loading: false});

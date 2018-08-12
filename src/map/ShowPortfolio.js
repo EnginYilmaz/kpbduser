@@ -23,7 +23,18 @@ export default class ShowPortfolio extends Component {
     this._mounted = false
   }
   getPortfolio() {
-    return fetch('https://webstudio.web.tr/portfolio_get_map.php' + '?email=' + this.props.email)
+    return fetch('https://webstudio.web.tr/portfolio_get_map.php' + '?email=' + this.props.email, {
+      method: "GET",
+      mode: "cors",
+      cache: "force-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Encoding": "zlib",
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         if (this._mounted) {
