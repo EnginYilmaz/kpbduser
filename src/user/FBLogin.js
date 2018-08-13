@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import LoginForm from './FBLoginForm.js';
+import I18n from 'ex-react-native-i18n';
 
 class Plainlogin extends Component {
   state = { loggedIn: false };
@@ -11,7 +12,7 @@ class Plainlogin extends Component {
       case true:
         return (
           <Button>
-            Log Out
+            {I18n.t('i18n_logout')}
           </Button>
         );
       case false:
@@ -24,7 +25,7 @@ class Plainlogin extends Component {
   render() {
     return (
       <View>
-        <Header headerText="Kullanıcı girişi" />
+        <Header headerText={I18n.t('i18n_user_login_information')} />
         {this.renderContent()}
       </View>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
+import I18n from 'ex-react-native-i18n';
 
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
@@ -75,8 +76,8 @@ class LoginForm extends Component {
       <Card>
         <CardSection>
           <Input
-            placeholder="kullanici@gmail.com"
-            label="E Posta"
+            placeholder={I18n.t('i18n_email_placeholder')}
+            label={I18n.t('i18n_email')}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
           />
@@ -85,8 +86,8 @@ class LoginForm extends Component {
         <CardSection>
           <Input
             secureTextEntry
-            placeholder="şifre"
-            label="Şifre"
+            placeholder={I18n.t('i18n_password')}
+            label={I18n.t('i18n_password')}
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
           />

@@ -116,5 +116,14 @@ I18n.translations = {
     i18n_logout: 'Logout',
     i18n_update: 'Update my informations',
     i18n_no_cake: 'There is no cake on the maps',
+    i18n_email_placeholder: 'user@mail.com',
+    i18n_password: 'password',
+    i18n_password_repeat: 'password repeat',
+    i18n_login: 'Login',
+    i18n_register: 'Register',
+    i18n_login_fb: 'Login with Facebook',
+    i18n_fill_login_information: 'Please fill your informations',
+    i18n_user_login_information: 'Please enter your credidentials',
+    i18n_nomessage_inbox: 'There is no message in your inbox',
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, AsyncStorage } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
-
+import I18n from 'ex-react-native-i18n';
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
 
@@ -82,7 +82,7 @@ class LoginForm extends Component {
 
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Giriş
+        {I18n.t('i18n_login')}
       </Button>
     );
   }
@@ -92,8 +92,8 @@ class LoginForm extends Component {
       <Card>
         <CardSection>
           <Input
-            placeholder="user@gmail.com"
-            label="E Posta"
+            placeholder={I18n.t('i18n_email')}
+            label={I18n.t('i18n_email')}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
           />
@@ -102,8 +102,8 @@ class LoginForm extends Component {
         <CardSection>
           <Input
             secureTextEntry
-            placeholder="password"
-            label="Şifre"
+            placeholder={I18n.t('i18n_password')}
+            label={I18n.t('i18n_password')}
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
           />
@@ -118,12 +118,12 @@ class LoginForm extends Component {
         </CardSection>
         <CardSection>
           <Button onPress={Actions.plainregister}>
-            Kaydol
+            {I18n.t('i18n_register')}
            </Button>
         </CardSection>
         <CardSection>
           <Button onPress={Actions.fbregister}>
-            Facebook ile kaydol
+            {I18n.t('i18n_login_fb')}
            </Button>
         </CardSection>        
       </Card>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, View, StatusBar } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import LoginForm from './LoginForm.js';
-
+import I18n from 'ex-react-native-i18n';
 class Plainlogin extends Component {
   state = { loggedIn: false, oturum: false };
 
@@ -13,9 +13,7 @@ class Plainlogin extends Component {
       oturum: oturum,
     });
     if (this.state.oturum == 'basarili') {
-      //Actions.mapscreen();
     }
-    //Alert.alert(lat);
   }
 
   renderContent() {
@@ -37,7 +35,7 @@ class Plainlogin extends Component {
       return (
         <View>
           <StatusBar hidden={true} />
-          <Header headerText="Kullanıcı girişi" />
+          <Header headerText={I18n.t('i18n_user_login_information')} />
           {this.renderContent()}
         </View>
       );

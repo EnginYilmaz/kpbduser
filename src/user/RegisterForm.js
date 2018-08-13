@@ -123,7 +123,7 @@ class RegisterForm extends Component {
 
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        Kaydol
+        {I18n.t('i18n_register')}
       </Button>
     );
   }
@@ -136,15 +136,15 @@ class RegisterForm extends Component {
         <CardSection>
           <Input
             placeholder={I18n.t('i18n_full_name')}
-            label="Tam isim"
+            label={I18n.t('i18n_full_name')}
             value={this.state.adsoyad}
             onChangeText={adsoyad => this.setState({ adsoyad })}
           />
         </CardSection>
         <CardSection>
           <Input
-            placeholder="kullanici@gmail.com"
-            label="Eposta"
+            placeholder={I18n.t('i18n_email_placeholder')}
+            label={I18n.t('i18n_email')}
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
           />
@@ -153,8 +153,8 @@ class RegisterForm extends Component {
         <CardSection>
           <Input
             secureTextEntry
-            placeholder="Şifre"
-            label="Şifre"
+            placeholder={I18n.t('i18n_password')}
+            label={I18n.t('i18n_password')}
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
           />
@@ -162,8 +162,8 @@ class RegisterForm extends Component {
         <CardSection>
           <Input
             secureTextEntry
-            placeholder="Şifre"
-            label="Şifre tekrar"
+            placeholder={I18n.t('i18n_password')}
+            label={I18n.t('i18n_password_repeat')}
             value={this.state.password_repeat}
             onChangeText={password_repeat => this.setState({ password_repeat })}
           />
@@ -172,7 +172,7 @@ class RegisterForm extends Component {
         <CardSection>
         <CardSection>
         <Text style={styles.rolTextStyle}>
-          Aşçı veya Pastacıyım
+          {I18n.t('i18n_cake_master')}
         </Text>
         </CardSection>
          <Switch

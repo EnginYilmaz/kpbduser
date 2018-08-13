@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import FBRegisterForm from './FBRegisterForm.js';
+import I18n from 'ex-react-native-i18n';
 
 class FBRegister extends Component {
   state = { latitude:null, longitude:null, loggedIn: false };
@@ -41,7 +42,7 @@ class FBRegister extends Component {
   render() {
     return (
       <View>
-        <Header headerText="Bilgilerinizi giriniz" />
+        <Header headerText={I18n.t('i18n_fill_login_information')} />
         {this.renderContent()}
       </View>
     );

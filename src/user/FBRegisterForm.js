@@ -112,7 +112,7 @@ class FBRegisterForm extends Component {
         <CardSection>
           <Fbinput
             placeholder={I18n.t('i18n_full_name')}
-            label="Tam isim"
+            label={I18n.t('i18n_full_name')}
             value={this.state.name}
             onChangeText={name => this.setState({ name })}
 
