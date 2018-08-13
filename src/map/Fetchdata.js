@@ -29,7 +29,7 @@ export default class Fetchdata extends Component {
       try {
         this.value = await AsyncStorage.getItem(key);
       } catch (error) {
-        console.log("Error retrieving data" + error);
+        //console.log("Error retrieving data" + error);
       }
     }
   }
@@ -41,7 +41,7 @@ export default class Fetchdata extends Component {
       try {
         await AsyncStorage.setItem(key, value);
       } catch (error) {
-        console.log("Error saving data" + error);
+        //console.log("Error saving data" + error);
       }
     }
   }
@@ -133,7 +133,6 @@ export default class Fetchdata extends Component {
             {this.state.markers.map((marker, index) => (
               <Marker key={index} coordinate={marker.latlng} title={marker.title} onPress={e => this.onPressMarker(marker.index)}/>
             ))}
-
           </MapView>
         </View>
       );

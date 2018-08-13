@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, StatusBar, Image} from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import { Button, Card, CardSection} from '../user/common';
+import I18n from 'ex-react-native-i18n';
 
 export default class ShowProfile extends Component {
     state = {
@@ -24,17 +25,17 @@ export default class ShowProfile extends Component {
           <Text>{this.props.adsoyad}</Text>
           <CardSection>
           <Button onPress={this.onMessagePress.bind(this)}>
-            Mesaj gönder
+            {I18n.t('i18n_sendmessage')}
           </Button>     
-          </CardSection>     
+          </CardSection>                                                                                                                                                      
         </View>
         </Card>
         );
-      } else {
+      } else {                                                                                                                          
         return (
           <Card>
           <CardSection>
-            <Text>Haritadan herhangi bir aşçı seçiniz</Text>
+            <Text></Text>
             </CardSection>
             </Card>
         );

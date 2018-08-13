@@ -41,11 +41,8 @@ export default class CameraPortfolioScreen extends React.Component {
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ permissionsGranted: status === 'granted' });
-  }
-
-  componentDidMount() {
     FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
-      console.log(e, 'Directory exists');
+      //console.log(e, 'Directory exists');
     });
   }
 
@@ -105,7 +102,7 @@ export default class CameraPortfolioScreen extends React.Component {
   takePicture = async function() {
     if (this.camera) {
       this.camera.takePictureAsync().then(data => {
-        //console.log(data.uri);
+        ////console.log(data.uri);
         Actions.portfolio({ userpicture: data.uri})
       });
     }

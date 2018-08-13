@@ -89,7 +89,7 @@ class RegisterForm extends Component {
     try {
       this.value = await AsyncStorage.getItem(key);
     } catch (error) {
-      console.log("Error retrieving data" + error);
+      //console.log("Error retrieving data" + error);
     }
   }
 
@@ -97,7 +97,7 @@ class RegisterForm extends Component {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
-      console.log("Error saving data" + error);
+      //console.log("Error saving data" + error);
     }
   }
   onLoginFail() {

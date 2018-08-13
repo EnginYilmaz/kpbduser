@@ -43,7 +43,7 @@ class Mapscreen extends Component {
     this._mounted = true;
     let lat = await AsyncStorage.getItem('@komsudapiser:lat');   
     let lng = await AsyncStorage.getItem('@komsudapiser:lng');  
-    console.log (lat);
+    //console.log (lat);
     if (this._mounted) {
       this.setState({ 
         lat: lat,

@@ -115,5 +115,6 @@ I18n.translations = {
     i18n_cake_master: 'I am a cake master\n(let me shown on the maps)',
     i18n_logout: 'Logout',
     i18n_update: 'Update my informations',
+    i18n_no_cake: 'There is no cake on the maps',
   }
 }

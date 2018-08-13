@@ -1,7 +1,7 @@
-
 import React, { Component } from 'react'
 import { AsyncStorage, Text, View, StyleSheet, StatusBar, ScrollView } from 'react-native'
 import { Card, CardSection } from '../user/common';
+import I18n from 'ex-react-native-i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +22,7 @@ export default class GetMessage extends Component {
     this._mounted = true;
 
     const emailim = await AsyncStorage.getItem('@komsudapiser:email');
-    console.log(emailim);
+    //console.log(emailim);
     if(this._mounted) {
     this.setState({ error: '', loading: true });
     }
@@ -78,7 +78,7 @@ export default class GetMessage extends Component {
       return (
         <View>
           <StatusBar hidden={true} />
-          <Text>Herhangi bir mesaj bulunamadı</Text>
+          <Text>{I18n.t('i18n_nomessage_inbox')}</Text>
         </View>
       );
     }

@@ -17,7 +17,7 @@ class MyPortfolio extends Component {
   async componentDidMount() {
     this._mounted = true;
     const emailim = await AsyncStorage.getItem('@komsudapiser:email');
-    console.log(emailim);
+    //console.log(emailim);
     this.setState({ error: '', loading: true });
 
     myURL = 'https://webstudio.web.tr/profile_update_get.php' + '?email=' + emailim;
@@ -56,9 +56,9 @@ class MyPortfolio extends Component {
   async saveOturum(key, value) {
     try {
       //await AsyncStorage.setItem(key, value);
-      console.log()
+      //console.log()
     } catch (error) {
-      console.log("Error saving data" + error);
+      //console.log("Error saving data" + error);
     }
   }
   shotPhoto = async () => {
@@ -104,14 +104,14 @@ class MyPortfolio extends Component {
     try {
       this.value = await AsyncStorage.getItem(key);
     } catch (error) {
-      console.log("Error retrieving data" + error);
+      //console.log("Error retrieving data" + error);
     }
   }
   async saveKey(key, value) {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
-      console.log("Error saving data" + error);
+      //console.log("Error saving data" + error);
     }
   }
   renderRefreshButton() {

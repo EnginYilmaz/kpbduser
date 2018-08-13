@@ -15,7 +15,7 @@ class FBRegisterForm extends Component {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
-      console.log("Error saving data" + error);
+      //console.log("Error saving data" + error);
     }
   }
   async componentDidMount (){
@@ -79,7 +79,7 @@ class FBRegisterForm extends Component {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
-      console.log("Error saving data" + error);
+      //console.log("Error saving data" + error);
     }
   }
   onLoginFail() {

@@ -8,7 +8,7 @@ class Plainlogin extends Component {
 
   async componentDidMount() {
     let oturum = await AsyncStorage.getItem('@komsudapiser:oturum');   
-    console.log (oturum);
+    //console.log (oturum);
     this.setState({ 
       oturum: oturum,
     });

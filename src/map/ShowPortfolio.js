@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Text, View, StyleSheet, StatusBar, Image } from 'react-native'
+import I18n from 'ex-react-native-i18n';
 
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +69,7 @@ export default class ShowPortfolio extends Component {
       return (
         <View>
           <StatusBar hidden={true} />
-          <Text>Herhangi bir kek bulunamadı</Text>
+          <Text>{I18n.t('i18n_no_cake')}</Text>
         </View>
       );
     }

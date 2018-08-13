@@ -34,7 +34,7 @@ class MyAccountForm extends Component {
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       );
       const emailim = await AsyncStorage.getItem('@komsudapiser:email');
-      console.log(emailim);
+      //console.log(emailim);
       this.setState({ error: '', loading: true });
 
       myURL = 'https://webstudio.web.tr/user_update_get.php' + '?email=' + emailim;
@@ -82,7 +82,7 @@ class MyAccountForm extends Component {
       try {
         await AsyncStorage.setItem(key, value);
       } catch (error) {
-        console.log("Error saving data" + error);
+        //console.log("Error saving data" + error);
       }
     }
   }
@@ -144,7 +144,7 @@ class MyAccountForm extends Component {
       try {
         this.value = await AsyncStorage.getItem(key);
       } catch (error) {
-        console.log("Error retrieving data" + error);
+        //console.log("Error retrieving data" + error);
       }
     }
   }
@@ -153,7 +153,7 @@ class MyAccountForm extends Component {
       try {
         await AsyncStorage.setItem(key, value);
       } catch (error) {
-        console.log("Error saving data" + error);
+        //console.log("Error saving data" + error);
       }
     }
   }

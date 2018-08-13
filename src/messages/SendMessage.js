@@ -12,7 +12,7 @@ export default class SendMessage extends Component {
       try {
         this.value = await AsyncStorage.getItem(key);
       } catch (error) {
-        console.log("Error retrieving data" + error);
+        //console.log("Error retrieving data" + error);
       }
     }
     async componentDidMount() {
