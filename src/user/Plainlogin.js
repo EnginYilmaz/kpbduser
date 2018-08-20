@@ -3,6 +3,7 @@ import { AsyncStorage, View, StatusBar } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import LoginForm from './LoginForm.js';
 import I18n from 'ex-react-native-i18n';
+
 class Plainlogin extends Component {
   state = { loggedIn: false, oturum: false };
 

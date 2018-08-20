@@ -21,7 +21,6 @@ class Plainlogin extends Component {
         return <Spinner size="large" />;
     }
   }
-
   render() {
     return (
       <View>

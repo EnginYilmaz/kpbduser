@@ -7,11 +7,12 @@ import MyAccountForm from './src/user/MyAccountForm.js';
 import Plainregister from './src/user/Plainregister.js';
 import MyPortfolio from './src/portfolio/MyPortfolio.js';
 import MyMessages from './src/messages/GetMessage.js';
-import { View, Text, AsyncStorage} from 'react-native';
+import { Alert, View, Text, AsyncStorage} from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import SendMessage from './src/messages/SendMessage.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
+import EmptyPlate from './src/EmptyPlate.js';
 import MenuIcon from './images/menu_burger.png';
 import I18n from 'ex-react-native-i18n';
 
@@ -23,7 +24,7 @@ export default class RouterComponent extends Component {
       loading: true,
     };
   };
-  componentWillMount() {
+  componentDidMount() {
     AsyncStorage.getItem('@komsudapiser:oturum')
       .then((oturum) => {
         if (oturum == 'basarili') {
@@ -42,10 +43,11 @@ export default class RouterComponent extends Component {
   };
   render() {
     if (this.state.loading) {
-      return <View><Text>Oturum açılıyor...</Text></View>;
+      return <View><Text>{I18n.t('i18n_session_starting')}</Text></View>;
     }
 
     if (this.state.logged == true) {
+      //Alert.alert('');
       return (
         <Router>
           <Drawer
@@ -53,16 +55,16 @@ export default class RouterComponent extends Component {
             drawerImage={MenuIcon}
             drawerWidth={300}
           >
-            <Scene key="myaccount" component={MyAccountForm} title="Komşuda pişer" />
-            <Scene key="portfolio" component={MyPortfolio} title="Komşuda pişer" />
-            <Scene key="messages" component={MyMessages} title="Komşuda pişer" />
-            <Scene key="user" component={Plainlogin} title="Komşuda pişer" />
-            <Scene key="plainregister" component={Plainregister} title="Komşuda pişer" />
-            <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" initial />
-            <Scene key="fbregister" component={FBRegister} title="Komşuda pişer" />
-            <Scene key="photograph" component={CameraScreen} title="Komşuda pişer" />
-            <Scene key="photoportfolio" component={CameraPortfolioScreen} title="Komşuda pişer" />
-            <Scene key="sendmessage" component={SendMessage} title="Komşuda pişer" />
+            <Scene key="myaccount" component={MyAccountForm} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="portfolio" component={MyPortfolio} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="messages" component={MyMessages} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="user" component={Plainlogin} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="plainregister" component={Plainregister} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="mapscreen" component={Mapscreen} title={I18n.t('i18n_komsuda_piser')} initial />
+            <Scene key="fbregister" component={FBRegister} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="photograph" component={CameraScreen} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="photoportfolio" component={CameraPortfolioScreen} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="sendmessage" component={SendMessage} title={I18n.t('i18n_komsuda_piser')} />
           </Drawer>
         </Router>
       );
@@ -70,20 +72,20 @@ export default class RouterComponent extends Component {
       return (
         <Router>
           <Drawer
-            contentComponent={HamburgerMenu}
+            contentComponent={EmptyPlate}
             drawerImage={MenuIcon}
             drawerWidth={300}
           >
-            <Scene key="myaccount" component={MyAccountForm} title="Komşuda pişer" />
-            <Scene key="portfolio" component={MyPortfolio} title="Komşuda pişer" />
-            <Scene key="messages" component={MyMessages} title="Komşuda pişer" />
-            <Scene key="user" component={Plainlogin} title="Komşuda pişer" initial />
-            <Scene key="plainregister" component={Plainregister} title="Komşuda pişer" />
-            <Scene key="mapscreen" component={Mapscreen} title="Komşuda pişer" />
-            <Scene key="fbregister" component={FBRegister} title="Komşuda pişer" />
-            <Scene key="photograph" component={CameraScreen} title="Komşuda pişer" />
-            <Scene key="photoportfolio" component={CameraPortfolioScreen} title="Komşuda pişer" />
-            <Scene key="sendmessage" component={SendMessage} title="Komşuda pişer" />
+            <Scene key="myaccount" component={MyAccountForm} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="portfolio" component={MyPortfolio} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="messages" component={MyMessages} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="user" component={Plainlogin} title={I18n.t('i18n_komsuda_piser')} initial />
+            <Scene key="plainregister" component={Plainregister} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="mapscreen" component={Mapscreen} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="fbregister" component={FBRegister} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="photograph" component={CameraScreen} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="photoportfolio" component={CameraPortfolioScreen} title={I18n.t('i18n_komsuda_piser')} />
+            <Scene key="sendmessage" component={SendMessage} title={I18n.t('i18n_komsuda_piser')} />
           </Drawer>
         </Router>
       );
@@ -97,6 +99,8 @@ I18n.fallbacks = true
 
 I18n.translations = {
   'en': {
+    i18n_komsuda_piser: 'Cake market',
+    i18n_session_starting: '\n\n\nSession starting...',
     i18n_myaccount: 'My account',
     i18n_messages: 'My messages',
     i18n_newcake: 'New cake!',
@@ -104,7 +108,7 @@ I18n.translations = {
     i18n_sendmessage: 'Send Message',
     i18n_select_cooker: 'Select a cooker on the map',
     i18n_shot_cake_photo: 'Shot cake photo',
-    i18n_cake_style: 'Cake style',
+    i18n_cake_type: 'Cake style',
     i18n_cake_details: 'Cake details',
     i18n_message_body: 'Your message',
     i18n_shot_your_photo: 'Shot your photo',
@@ -123,7 +127,39 @@ I18n.translations = {
     i18n_register: 'Register',
     i18n_login_fb: 'Login with Facebook',
     i18n_fill_login_information: 'Please fill your informations',
-    i18n_user_login_information: 'Please enter your credidentials',
+    i18n_user_login_information: 'Please enter your credentials',
     i18n_nomessage_inbox: 'There is no message in your inbox',
+  },
+  'tr': {
+    i18n_komsuda_piser: 'Komşuda pişer',
+    i18n_session_starting: '\n\n\nOturum açılıyor...',
+    i18n_myaccount: 'Hesabım',
+    i18n_messages: 'Mesajlarım',
+    i18n_newcake: 'Yeni kek!',
+    i18n_cakeonthemaps: 'Haritada kek!',
+    i18n_sendmessage: 'Mesaj gönder',
+    i18n_select_cooker: 'Haritadan bir pastacı seçin',
+    i18n_shot_cake_photo: 'Bir pasta fotoğrafı çekin',
+    i18n_cake_type: 'Pasta türü',
+    i18n_cake_details: 'Pasta özellikleri',
+    i18n_message_body: 'Mesajınız',
+    i18n_shot_your_photo: 'Fotoğrafınızı çekin',
+    i18n_full_name: 'Ad soyad',
+    i18n_email: 'E-posta',
+    i18n_password: 'Şifre',
+    i18n_password_repeat: 'Şifre tekrar',
+    i18n_cake_master: 'Ben bir pastacıyım\n(Beni ve konumumu haritalarda listele)',
+    i18n_logout: 'Çıkış yap',
+    i18n_update: 'Bilgilerimiz güncelle',
+    i18n_no_cake: 'Haritalarda pasta bulunamadı',
+    i18n_email_placeholder: 'kullanıcı@mail.com',
+    i18n_password: 'Şifre',
+    i18n_password_repeat: 'Şifre tekrar',
+    i18n_login: 'Giriş',
+    i18n_register: 'Kaydol',
+    i18n_login_fb: 'Facebook ile kaydol',
+    i18n_fill_login_information: 'Lütfen kullanıcı bilgilerinizi giriniz',
+    i18n_user_login_information: 'Lütfen kullanıcı bilgilerinizi giriniz',
+    i18n_nomessage_inbox: 'Gelen kutunuzda mesaj bulunamadı',
   }
 }

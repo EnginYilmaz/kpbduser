@@ -2,6 +2,7 @@ import React, { Component, } from 'react';
 import { StatusBar, AsyncStorage, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Button, Card, CardSection, Input, Minput, Spinner } from '../user/common';
 import { Actions } from 'react-native-router-flux';
+import I18n from 'ex-react-native-i18n';
 
 class MyPortfolio extends Component {
 
@@ -121,7 +122,7 @@ class MyPortfolio extends Component {
 
     return (
       <Button onPress={this.onGuncellePress.bind(this)}>
-        Kaydet
+        {I18n.t('i18n_newcake')}
       </Button>
     );
   }
@@ -132,7 +133,7 @@ class MyPortfolio extends Component {
 
     return (
       <Button onPress={this.onCikisPress.bind(this)}>
-        Logout
+        {I18n.t('i18n_logout')}
       </Button>
     );
   }
@@ -142,7 +143,7 @@ class MyPortfolio extends Component {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
           <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + this.state.email + '/' + (this.state.photoid) + '.jpeg' }} />
-          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Kek resmi çek</Text>
+          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_cake_photo')}</Text>
         </TouchableOpacity>
       );
 
@@ -150,7 +151,7 @@ class MyPortfolio extends Component {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
           <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.userpicture }} />
-          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>Kek resmi çek</Text>
+          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_cake_photo')}</Text>
         </TouchableOpacity>
       );
     }
@@ -167,14 +168,14 @@ class MyPortfolio extends Component {
           </CardSection>
           <CardSection>
           <Input
-            label="Kek türü"
+            label={I18n.t('i18n_cake_type')}
             value={this.state.productname}
             onChangeText={productname => this.setState({ productname })}
           />
           </CardSection>
           <CardSection>
           <Minput
-            label="Ayrıntılar"
+            label={I18n.t('i18n_cake_details')}
             value={this.state.productdescription}
             onChangeText={productdescription => this.setState({ productdescription })}
           />

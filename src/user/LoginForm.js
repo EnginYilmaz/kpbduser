@@ -3,6 +3,8 @@ import { Text, AsyncStorage } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
+import RNRestart from 'react-native-restart';
+
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
 
@@ -15,13 +17,13 @@ class LoginForm extends Component {
   }
   onButtonPress() {
     const { email, password } = this.state;
-    //if (this._mounted) {
+    if (this._mounted) {
       this.setState({ error: '', loading: true });
-    //}
+    }
     myURL= 'https://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
     //Alert.alert(myURL);
     
-    return fetch(myURL, {
+    fetch(myURL, {
       method: "GET",
       mode: "cors",
       cache: "force-cache",
@@ -50,6 +52,7 @@ class LoginForm extends Component {
         }
       }
     })
+    RNRestart.Restart();
     
   }
   componentDidMount () {
