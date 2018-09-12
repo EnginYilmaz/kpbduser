@@ -7,12 +7,12 @@ import MyAccountForm from './src/user/MyAccountForm.js';
 import Plainregister from './src/user/Plainregister.js';
 import MyPortfolio from './src/portfolio/MyPortfolio.js';
 import MyMessages from './src/messages/GetMessage.js';
-import { Alert, View, Text, AsyncStorage} from 'react-native';
+import { Alert, View, Text, AsyncStorage } from 'react-native';
 import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import SendMessage from './src/messages/SendMessage.js';
 import HamburgerMenu from './src/HamburgerMenu.js';
-import EmptyPlate from './src/EmptyPlate.js';
+//import EmptyPlate from './src/EmptyPlate.js';
 import MenuIcon from './images/menu_burger.png';
 import I18n from 'ex-react-native-i18n';
 
@@ -64,9 +64,6 @@ export default class RouterComponent extends Component {
     if (this.state.loading) {
       return <View><Text>{I18n.t('i18n_session_starting')}</Text></View>;
     }
-
-    if (this.state.logged == true) {
-      //Alert.alert('');
       return (
         <Router>
           <Drawer
@@ -87,28 +84,7 @@ export default class RouterComponent extends Component {
           </Drawer>
         </Router>
       );
-    } else if (this.state.logged == false) {
-      return (
-        <Router>
-          <Drawer
-            contentComponent={EmptyPlate}
-            drawerImage={MenuIcon}
-            drawerWidth={300}
-          >
-            <Scene key="myaccount" component={MyAccountForm} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="portfolio" component={MyPortfolio} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="messages" component={MyMessages} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="user" component={Plainlogin} title={I18n.t('i18n_komsuda_piser')} initial />
-            <Scene key="plainregister" component={Plainregister} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="mapscreen" component={Mapscreen} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="fbregister" component={FBRegister} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="photograph" component={CameraScreen} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="photoportfolio" component={CameraPortfolioScreen} title={I18n.t('i18n_komsuda_piser')} />
-            <Scene key="sendmessage" component={SendMessage} title={I18n.t('i18n_komsuda_piser')} />
-          </Drawer>
-        </Router>
-      );
-    }
+    
 
   }
 };

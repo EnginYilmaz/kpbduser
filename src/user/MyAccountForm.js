@@ -1,9 +1,9 @@
 import React, { Component, } from 'react';
-import { StatusBar, AsyncStorage, View, Text, Alert, Switch, Image, TouchableOpacity } from 'react-native';
+import { StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
-import RNRestart from 'react-native-restart'; 
+//import RNRestart from 'react-native-restart'; 
 
 class MyAccountForm extends Component {
 
@@ -136,8 +136,8 @@ class MyAccountForm extends Component {
     if (this._mounted) {
       this.saveOturum('@komsudapiser:oturum', 'basarisiz');
       this.saveKey('@komsudapiser:email', '');
-      RNRestart.Restart();
-      //Actions.user();
+      //RNRestart.Restart();
+      Actions.user();
     }
   }
   async getKey(key) {
