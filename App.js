@@ -25,6 +25,24 @@ export default class RouterComponent extends Component {
     };
   };
   componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let tmp_lat = position.coords.latitude;
+        let tmp_lng = position.coords.longitude;
+        this.saveKey('@komsudapiser:lat',(tmp_lat.toString()));
+        this.saveKey('@komsudapiser:lng', (tmp_lng.toString()));
+        Alert.alert(tmp_lat.toString());
+        
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          error: null,
+        });
+        
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
     AsyncStorage.getItem('@komsudapiser:oturum')
       .then((oturum) => {
         if (oturum == 'basarili') {
@@ -32,6 +50,7 @@ export default class RouterComponent extends Component {
             logged: true,
             loading: false,
           });
+
         } else {
           this.setState({
             logged: false,
