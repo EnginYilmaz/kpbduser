@@ -102,7 +102,7 @@ export default class CameraPortfolioScreen extends React.Component {
   takePicture = async function() {
     if (this.camera) {
       this.camera.takePictureAsync().then(data => {
-        ////console.log(data.uri);
+        console.log("first page the data is = " + data.uri);
         Actions.portfolio({ userpicture: data.uri})
       });
     }
