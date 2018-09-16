@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AsyncStorage, Text, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+
 import { Permissions, Notifications } from 'expo';
 import I18n from 'ex-react-native-i18n';
 
@@ -77,7 +79,9 @@ class RegisterForm extends Component {
           //this.saveKey('@komsudapiser:lat', latitude);
           //this.saveKey('@komsudapiser:lng', longitude);
           if (responseJson.basari == true ) {
-            Actions.mapscreen();
+            //Actions.mapscreen();
+            this.props.navigation.navigate('mapscreen')
+
           } else {
             this.setState({error: responseJson.basari});
           }
@@ -127,9 +131,7 @@ class RegisterForm extends Component {
       </Button>
     );
   }
-
- 
-
+  
   render() {
     return (
       <Card>

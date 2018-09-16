@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Slider, Vibration  } from 'react-native';
 import isIPhoneX from 'react-native-is-iphonex';
 import { Actions } from 'react-native-router-flux';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 const landmarkSize = 2;
 
@@ -103,7 +104,8 @@ export default class CameraScreen extends React.Component {
     if (this.camera) {
       this.camera.takePictureAsync().then(data => {
         ////console.log(data.uri);
-        Actions.myaccount({ userpicture: data.uri})
+        //Actions.myaccount({ userpicture: data.uri})
+        this.props.navigation.navigate('myaccount', { userpicture: data.uri });
       });
     }
   };

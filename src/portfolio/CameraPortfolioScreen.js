@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Slider } from 'react-native';
 import isIPhoneX from 'react-native-is-iphonex';
 import { Actions } from 'react-native-router-flux';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 const landmarkSize = 2;
 
@@ -100,12 +101,15 @@ export default class CameraPortfolioScreen extends React.Component {
   }
 
   takePicture = async function() {
-    Actions.portfolio( {userpicture: 'selam'})
+    //Actions.portfolio( {userpicture: 'selam'})
+    this.props.navigation.navigate('portfolio', { userpicture: 'selam' })
+
     /*
     if (this.camera) {
       this.camera.takePictureAsync().then(data => {
         console.log("first page the data is = " + data.uri);
-        Actions.portfolio({ userpicture: data.uri})
+        this.props.navigation.navigate('porfolio', { userpicture: data.uri })
+        //Actions.portfolio({ userpicture: data.uri})
       });
     }
     */

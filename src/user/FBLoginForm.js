@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
 import I18n from 'ex-react-native-i18n';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
@@ -28,7 +29,8 @@ class LoginForm extends Component {
          this.setState({error: responseJson.basari, loading: false});
         }
         if (responseJson.basari == true ) {
-          Actions.mapscreen();
+          //Actions.mapscreen();
+          this.props.navigation.navigate('mapscreen')
         } else {
           if (this._mounted) {
             this.setState({error: responseJson.basari})

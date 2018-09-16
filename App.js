@@ -15,6 +15,8 @@ import HamburgerMenu from './src/HamburgerMenu.js';
 //import EmptyPlate from './src/EmptyPlate.js';
 import MenuIcon from './images/menu_burger.png';
 import I18n from 'ex-react-native-i18n';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+
 
 export default class RouterComponent extends Component {
   constructor(props, context) {
@@ -64,6 +66,8 @@ export default class RouterComponent extends Component {
     if (this.state.loading) {
       return <View><Text>{I18n.t('i18n_session_starting')}</Text></View>;
     }
+    return <RootStack />;
+    /*
       return (
         <Router>
           <Drawer
@@ -83,13 +87,36 @@ export default class RouterComponent extends Component {
             <Scene key="sendmessage" component={SendMessage} title={I18n.t('i18n_komsuda_piser')} />
           </Drawer>
         </Router>
-      );
+     );
+  */ 
     
 
   }
 };
 
+
+const RootStack = createStackNavigator(
+  {
+    myaccount: MyAccountForm,
+    portfolio: MyPortfolio,
+    messages: MyMessages,
+    user: Plainlogin,
+    plainregister: Plainregister,
+    mapscreen: Mapscreen,
+    fbregister: FBRegister,
+    photograph: CameraScreen,
+    photoportpolio: CameraPortfolioScreen,
+    sendmessage: SendMessage,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+
+
 // Enable fallbacks if you want `en-US` and `en-GB` to fallback to `en`
+
 I18n.fallbacks = true
 
 I18n.translations = {

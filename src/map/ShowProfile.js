@@ -3,6 +3,7 @@ import { Text, View, StatusBar, Image} from 'react-native'
 import { Actions } from 'react-native-router-flux';
 import { Button, Card, CardSection} from '../user/common';
 import I18n from 'ex-react-native-i18n';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 export default class ShowProfile extends Component {
     state = {
@@ -10,7 +11,9 @@ export default class ShowProfile extends Component {
         email: null,
     };
     onMessagePress () {
-      Actions.sendmessage({email: this.props.email});
+      //Actions.sendmessage({email: this.props.email});
+      this.props.navigation.navigate('sendmessage', { email: this.props.email })
+
     }
     render() { 
       let pic = {

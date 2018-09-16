@@ -4,6 +4,7 @@ import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 //import RNRestart from 'react-native-restart';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 class LoginForm extends Component {
   state = { email: '', password: '', error: '', loading: false };
@@ -44,7 +45,9 @@ class LoginForm extends Component {
         this.saveOturum('@komsudapiser:oturum','basarili');
         this.saveOturum('@komsudapiser:email', email);
         if (this._mounted) {
-          Actions.mapscreen();
+          //Actions.mapscreen();
+          this.props.navigation.navigate('mapscreen')
+
         }
       } else {
         if (this._mounted) {
@@ -120,12 +123,12 @@ class LoginForm extends Component {
           {this.renderButton()}
         </CardSection>
         <CardSection>
-          <Button onPress={Actions.plainregister}>
+          <Button onPress={() => this.props.navigation.navigate('plainregister')}>
             {I18n.t('i18n_register')}
            </Button>
         </CardSection>
         <CardSection>
-          <Button onPress={Actions.fbregister}>
+          <Button onPress={() => this.props.navigation.navigate('fbregister')}>
             {I18n.t('i18n_login_fb')}
            </Button>
         </CardSection>        

@@ -34,7 +34,8 @@ class FBRegisterForm extends Component {
         if (this.state.token != null ) {
           this.saveOturum('@komsudapiser:oturum','basarili');
           this.saveOturum('@komsudapiser:email', this.state.id);
-          Actions.mapscreen();
+          //Actions.mapscreen();
+          this.props.navigation.navigate('mapscreen')
         } else {
           if (this._mounted) {
             this.setState({error: responseJson.basari});
@@ -69,7 +70,9 @@ class FBRegisterForm extends Component {
         this.saveKey('@komsudapiser:id', id);
         this.saveKey('@komsudapiser:password', token); 
         if (responseJson.basari == true || responseJson.basari == 'zaten kayitli' || responseJson.token != null ) {
-          Actions.mapscreen();
+          //Actions.mapscreen();
+          this.props.navigation.navigate('mapscreen')
+
         } else {
           this.setState({error: responseJson.basari});
         }

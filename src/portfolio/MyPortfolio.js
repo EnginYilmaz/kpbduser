@@ -63,7 +63,8 @@ class MyPortfolio extends Component {
     }
   }
   shotPhoto = async () => {
-    Actions.photoportfolio();
+    //Actions.photoportfolio();
+    this.props.navigation.navigate('photoportfolio')
   };
 
   onGuncellePress() {

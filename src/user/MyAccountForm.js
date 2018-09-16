@@ -4,6 +4,7 @@ import { Button, Card, CardSection, Input, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 //import RNRestart from 'react-native-restart'; 
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 class MyAccountForm extends Component {
 
@@ -89,7 +90,8 @@ class MyAccountForm extends Component {
 
   shotPhoto = async () => {
     if (this._mounted) {
-      Actions.photograph();
+      //Actions.photograph();
+      this.props.navigation.navigate('photograph')
     }
   };
 
@@ -137,7 +139,9 @@ class MyAccountForm extends Component {
       this.saveOturum('@komsudapiser:oturum', 'basarisiz');
       this.saveKey('@komsudapiser:email', '');
       //RNRestart.Restart();
-      Actions.user();
+      //Actions.user();
+      this.props.navigation.navigate('user')
+
     }
   }
   async getKey(key) {
