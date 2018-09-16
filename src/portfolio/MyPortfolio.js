@@ -139,6 +139,7 @@ class MyPortfolio extends Component {
   }
 
   PhotoSection() {
+    console.log("The props argument is not showing=" + this.props.userpicture);
     if (!this.props.userpicture) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
