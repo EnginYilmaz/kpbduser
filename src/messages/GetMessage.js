@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Text, View, StyleSheet, StatusBar, ScrollView } from 'react-native'
+import { Image, AsyncStorage, Text, View, StyleSheet, StatusBar, ScrollView } from 'react-native'
 import { Card, CardSection } from '../user/common';
 import I18n from 'ex-react-native-i18n';
 
@@ -11,9 +11,26 @@ const styles = StyleSheet.create({
   tub: {
 
   },
-
 });
+I18n.initAsync();
+
+if ( I18n.locale== 'en') {
+  my_messages= 'My messages';
+} else if (I18n.locale == 'tr') {
+  my_messages= 'Mesaj kutum';
+}
 export default class GetMessage extends Component {
+  static navigationOptions = {
+    header: 'deneme',
+    drawerLabel: my_messages,
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        style={{ width: 35,height: 30}}
+        source={require('../../assets/box-add.png')}
+      />
+    ),
+  }
+
   state = {
     email: null,
     messages: [],
@@ -29,7 +46,7 @@ export default class GetMessage extends Component {
     return fetch('https://webstudio.web.tr/get_message.php' + '?email=' + emailim, {
       method: "GET",
       mode: "cors",
-      cache: "force-cache",
+      cache: "no-store",
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -58,11 +75,9 @@ export default class GetMessage extends Component {
     if (this.state.messages) {
       return (
         <View style={styles.container}>
-          <StatusBar hidden={true} />
           <ScrollView>
           <Card>
             <View style={styles.tub}>
-
               {this.state.messages.map((message, index) => (
                 <CardSection key={index}>
                   <Text key={index}>{message.name} </Text>

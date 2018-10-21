@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import Button from 'react-native-button';
-import {Actions} from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 
 
@@ -82,8 +81,8 @@ class HamburgerMenu extends React.Component {
             <View style={styles.container}>
                 <Button style={styles.myaccount} onPress={Actions.myaccount}>{I18n.t('i18n_myaccount')}</Button>
                 <Button style={styles.mymessages} onPress={Actions.messages}>{I18n.t('i18n_messages')}</Button>
-                <Button style={styles.portfolio} onPress={Actions.portfolio}>{I18n.t('i18n_newcake')}</Button>
-                <Button style={styles.map} onPress={Actions.mapscreen}>{I18n.t('i18n_cakeonthemaps')}</Button>
+                <Button style={styles.portfolio} onPress={Actions.portfolio}>{I18n.t('i18n_newfood')}</Button>
+                <Button style={styles.map} onPress={Actions.mapscreen}>{I18n.t('i18n_foodonthemaps')}</Button>
             </View>
         );
     }

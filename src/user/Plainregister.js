@@ -1,29 +1,53 @@
 import React, { Component } from 'react';
-import { AsyncStorage, View } from 'react-native';
+import { Alert, Platform, Image, AsyncStorage, View } from 'react-native';
 import { Header, Button, Spinner } from './common';
 import RegisterForm from './RegisterForm.js';
 import I18n from 'ex-react-native-i18n';
+import { Constants, Location, Permissions } from 'expo';
+
+I18n.initAsync();
+
+if ( I18n.locale== 'en') {
+  register= 'Sign up';
+} else if (I18n.locale == 'tr') {
+  register= 'Kaydol';
+}
 
 class Plainregister extends Component {
+  static navigationOptions = {
+    drawerLabel: register,
+    drawerIcon: ({ tintColor }) => (
+    <Image
+      style={{ width: 30,height: 30}}
+      source={require('../../assets/clipboard.png')}
+    />
+    ),
+  }
   state = { latitude:null, longitude:null, loggedIn: false };
   componentDidMount = () => {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-        	let tmp_lat = position.coords.latitude;
-        	let tmp_lng = position.coords.longitude;
-          this.saveKey('@komsudapiser:lat',(tmp_lat.toString()));
-          this.saveKey('@komsudapiser:lng', (tmp_lng.toString()));
-          this.setState({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            error: null,
-          });
-        },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
   }
-
+  componentWillMount () {
+    I18n.initAsync();
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    //Alert.alert(location+'')
+    this.setState({ latitude: location.latitude, longitude: location.longitude });
+  
+  };
   async saveKey(key,value) {
     try {
       await AsyncStorage.setItem(key, value);
@@ -55,5 +79,12 @@ class Plainregister extends Component {
     );
   }
 }
+const styles = {
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  }
+};
 
 export default Plainregister;

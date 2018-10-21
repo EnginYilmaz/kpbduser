@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Text, Switch } from 'react-native';
+import { Alert, AsyncStorage, Text, Switch } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
-import { Actions } from 'react-native-router-flux';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 import { Permissions, Notifications } from 'expo';
@@ -56,12 +55,14 @@ class RegisterForm extends Component {
       this.setState({error: 'Şifreler aynı değil'});
     } else {
       this.setState({ error: '', loading: true });
+      Alert.alert(this.props.latitude)
       myURL= 'https://webstudio.web.tr/user_register.php' + '?email=' + email + '&adsoyad='+adsoyad +'&password=' + password + '&latitude='+ ''+ this.props.latitude + '&longitude=' +this.props.longitude +'&password_repeat=' + password_repeat+ '&rol=' + rol + '&token=' + token;
       //this.setState({error: myURL});
       return fetch(myURL, {
         method: "GET",
         mode: "cors",
-        cache: "force-cache",
+        cache: "no-store",
+        cache: "no-store",
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -174,7 +175,7 @@ class RegisterForm extends Component {
         <CardSection>
         <CardSection>
         <Text style={styles.rolTextStyle}>
-          {I18n.t('i18n_cake_master')}
+          {I18n.t('i18n_food_master')}
         </Text>
         </CardSection>
          <Switch

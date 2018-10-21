@@ -1,13 +1,31 @@
 import React, { Component, } from 'react';
-import { StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
+import { Platform, StatusBar, AsyncStorage, View, Text, Alert, Switch, CameraRoll, Image, TouchableOpacity, Navigator } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
-import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 //import RNRestart from 'react-native-restart'; 
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
-class MyAccountForm extends Component {
+import { Constants, Location, Permissions } from 'expo';
 
+I18n.initAsync();
+
+//Alert.alert(I18n.locale)
+if ( I18n.locale== 'en') {
+  my_account= 'My account';
+} else if (I18n.locale == 'tr') {
+  myportfolio= 'Hesabım';
+}
+
+class MyAccountForm extends Component {
+  static navigationOptions = {
+    drawerLabel: my_account,
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        style={{ width: 35,height: 30}}
+        source={require('../../assets/home.png')}
+      />
+    ),
+  }
   constructor(props) {
     super(props);
   }
@@ -16,10 +34,32 @@ class MyAccountForm extends Component {
     resimgoruntule: true, adsoyad: '', email: '', password: '', password_repeat: '', error: '', rol: false, picture: { uri: 'https://webstudio.web.tr/resimler/resimyok.png' },
     loading: false, latitude: null, longitude: null, loggedIn: false
   };
+  componentWillMount () {
+    I18n.initAsync();
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    //Alert.alert(location+'')
+    this.setState({ latitude: location.latitude, longitude: location.longitude });
+  };
 
   async componentDidMount() {
     this._mounted = true;
     if (this._mounted) {
+      /*
       navigator.geolocation.getCurrentPosition(
         (position) => {
 
@@ -34,15 +74,17 @@ class MyAccountForm extends Component {
         (error) => this.setState({ error: error.message }),
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       );
+      */
       const emailim = await AsyncStorage.getItem('@komsudapiser:email');
       //console.log(emailim);
       this.setState({ error: '', loading: true });
 
       myURL = 'https://webstudio.web.tr/user_update_get.php' + '?email=' + emailim;
+      //Alert.alert("emailim=" + emailim);
       return fetch(myURL, {
         method: "GET",
         mode: "cors",
-        cache: "force-cache",
+        cache: "no-store",
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json; charset=utf-8",
@@ -91,6 +133,7 @@ class MyAccountForm extends Component {
   shotPhoto = async () => {
     if (this._mounted) {
       //Actions.photograph();
+      //Alert.alert("selam")
       this.props.navigation.navigate('photograph')
     }
   };
@@ -114,7 +157,7 @@ class MyAccountForm extends Component {
         data.append('longitude', this.state.longitude);
         data.append('rol', this.state.rol);
         data.append('photo', {
-          uri: this.props.userpicture,
+          uri: this.props.navigation.getParam('photouri'),
           type: 'image/jpeg', // or photo.type
           name: email + '.jpeg',
         });
@@ -126,7 +169,7 @@ class MyAccountForm extends Component {
           .then((responseJson) => {
             this.setState({ error: responseJson.basari, loading: false });
             if (responseJson.basari == true) {
-              //Alert.alert("kayit basarili");
+              Alert.alert("kayit basarili");
             } else {
               this.setState({ error: responseJson.basari });
             }
@@ -190,7 +233,8 @@ class MyAccountForm extends Component {
 
   PhotoSection() {
     if (this._mounted) {
-      if (!this.props.userpicture) {
+      //Alert.alert(this.props.navigation.getParam('userpicture'))
+      if (! this.props.navigation.getParam('photouri')) {
         return (
           <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
             <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/kullaniciresmi/' + this.state.email + '.jpeg' }} />
@@ -199,10 +243,11 @@ class MyAccountForm extends Component {
         );
 
       } else {
+        console.log(this.props.navigation.getParam('userpicture'))
         return (
           <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-            <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.userpicture }} />
-            <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_your_photo')}</Text>
+            <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.navigation.getParam('photouri') }} />
+            <Text style={{ height: 50, width: 150, backgroundColor: 'orange' }}>{I18n.t('i18n_shot_your_photo')}</Text>
           </TouchableOpacity>
         );
       }
@@ -210,10 +255,9 @@ class MyAccountForm extends Component {
   }
 
   render() {
+    //Alert.alert(this.props.navigation.getParam('userpicture', 'Peter'))
     return (
       <View>
-        <StatusBar hidden={true} />
-
         <Card>
           {this.PhotoSection()}
           <CardSection>
@@ -251,7 +295,7 @@ class MyAccountForm extends Component {
           <CardSection>
             <CardSection>
               <Text style={styles.rolTextStyle}>
-                {I18n.t('i18n_cake_master')}
+                {I18n.t('i18n_food_master')}
               </Text>
             </CardSection>
             <Switch

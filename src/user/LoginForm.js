@@ -1,33 +1,50 @@
 import React, { Component } from 'react';
-import { Text, AsyncStorage } from 'react-native';
+import { Image, Alert, Text, AsyncStorage } from 'react-native';
 import { Button, Card, CardSection, Input, Spinner } from './common';
-import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 //import RNRestart from 'react-native-restart';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
+I18n.initAsync();
+
+//Alert.alert(I18n.locale)
+if ( I18n.locale== 'en') {
+  signin= 'Sign in';
+} else if (I18n.locale == 'tr') {
+  signin= 'Giriş yap';
+}
+
 class LoginForm extends Component {
+  static navigationOptions = {
+    drawerLabel: signin,
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        style={{ width: 30,height: 30}}
+        source={require('../../assets/enter.png')}
+      />
+    ),
+  }
   state = { email: '', password: '', error: '', loading: false };
 
-  async saveOturum(key,value) {
+  async saveOturum(key, value) {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (error) {
       //console.log("Error saving data" + error);
     }
   }
-  onButtonPress() {
+  onButtonPress = () => {
     const { email, password } = this.state;
     if (this._mounted) {
       this.setState({ error: '', loading: true });
     }
-    myURL= 'https://webstudio.web.tr/user_validate.php' + '?email=' + email  +'&password=' + password ;
+    myURL = 'https://webstudio.web.tr/user_validate.php' + '?email=' + email + '&password=' + password;
     //Alert.alert(myURL);
-    
+
     fetch(myURL, {
       method: "GET",
       mode: "cors",
-      cache: "force-cache",
+      cache: "no-store",
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -36,29 +53,30 @@ class LoginForm extends Component {
       redirect: "follow",
       referrer: "no-referrer",
     })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      if (this._mounted) {
-        this.setState({error: responseJson.basari, loading: false});
-      }
-      if (responseJson.basari == true ) {
-        this.saveOturum('@komsudapiser:oturum','basarili');
-        this.saveOturum('@komsudapiser:email', email);
+      .then((response) => response.json())
+      .then((responseJson) => {
         if (this._mounted) {
-          //Actions.mapscreen();
-          this.props.navigation.navigate('mapscreen')
-
+          this.setState({ error: responseJson.basari, loading: false });
         }
-      } else {
-        if (this._mounted) {
-          this.setState({error: responseJson.basari});
+        if (responseJson.basari == true) {
+          //Alert.alert("basarili");
+          this.saveOturum('@komsudapiser:oturum', 'basarili');
+          this.saveOturum('@komsudapiser:email', email);
+          if (this._mounted) {
+            //Actions.mapscreen();
+            //Alert.alert("mapscreene gitmesi gerekirdi")
+            this.props.navigation.navigate('mapscreen')
+          }
+        } else {
+          if (this._mounted) {
+            this.setState({ error: responseJson.basari });
+          }
         }
-      }
-    })
+      })
     //RNRestart.Restart();
-    
+
   }
-  componentDidMount () {
+  componentDidMount() {
     this._mounted = true;
   }
   componentWillUnmount() {
@@ -80,7 +98,7 @@ class LoginForm extends Component {
       });
     }
   }
-  
+
   renderButton() {
     if (this.state.loading) {
       return <Spinner size="small" />;
@@ -125,13 +143,13 @@ class LoginForm extends Component {
         <CardSection>
           <Button onPress={() => this.props.navigation.navigate('plainregister')}>
             {I18n.t('i18n_register')}
-           </Button>
+          </Button>
         </CardSection>
         <CardSection>
           <Button onPress={() => this.props.navigation.navigate('fbregister')}>
             {I18n.t('i18n_login_fb')}
-           </Button>
-        </CardSection>        
+          </Button>
+        </CardSection>
       </Card>
     );
   }

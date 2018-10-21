@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AsyncStorage, Text, Switch } from 'react-native';
 import { Button, Card, CardSection, Spinner,Fbinput } from './common';
-import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 
 

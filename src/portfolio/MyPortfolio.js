@@ -1,55 +1,51 @@
 import React, { Component, } from 'react';
-import { StatusBar, AsyncStorage, View, Text, Image, TouchableOpacity } from 'react-native';
+import { Alert, StatusBar, AsyncStorage, View, Text, Image, TouchableOpacity } from 'react-native';
 import { Button, Card, CardSection, Input, Minput, Spinner } from '../user/common';
-import { Actions } from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
+import { createStackNavigator, createDrawerNavigator, NavigationActions} from 'react-navigation'; // Version can be specified in package.json
+
+I18n.initAsync();
+
+//Alert.alert(I18n.locale)
+if ( I18n.locale== 'en') {
+  my_portfolio= 'New food!';
+} else if (I18n.locale == 'tr') {
+  myportfolio= 'Yeni yiyecek!';
+}
 
 class MyPortfolio extends Component {
-
+  static navigationOptions = {
+    drawerLabel: my_portfolio,
+    drawerIcon: ({ tintColor }) => (
+      <Image
+        style={{ width: 35,height: 30}}
+        source={require('../../assets/new-food.png')}
+      />
+    ),
+  }
   constructor(props) {
     super(props);
+
   }
 
   state = {
     productname:'', resimgoruntule: true, resimurl: {}, email: '', error: '', rol: false,
     loading: false,
   };
-  
+  componentWillMount () {
+    I18n.initAsync();
+
+  }
   async componentDidMount() {
     this._mounted = true;
     const emailim = await AsyncStorage.getItem('@komsudapiser:email');
+    this.setState({ email: emailim})
     //console.log(emailim);
-    this.setState({ error: '', loading: true });
+    //Alert.alert(this.state.email)
+    const { status } = await Expo.Permissions.askAsync(Expo.Permissions.CAMERA_ROLL);
 
-    myURL = 'https://webstudio.web.tr/profile_update_get.php' + '?email=' + emailim;
-    return fetch(myURL, {
-      method: "GET",
-      mode: "cors",
-      cache: "force-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Content-Encoding": "zlib",
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-    })  
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let rolum = false;  
-
-        if (responseJson.rol == "asci") {
-          rolum = true;
-        }
-        if (this._mounted) {
-          this.setState({
-            resimurl: responseJson.resimurl,
-            email: responseJson.email,
-            rol: rolum,
-            loading: false,
-          });
-        }
-      })
+    if (status === 'granted') {
+    }
   }
   componentWillUnmount() {
     this._mounted = false
@@ -66,10 +62,12 @@ class MyPortfolio extends Component {
     //Actions.photoportfolio();
     this.props.navigation.navigate('photoportfolio')
   };
-
+  
   onGuncellePress() {
-    //Alert.alert(''+ this.props.longitude);
-    const { email} = this.state;
+    const { emailim, productname, productdescription } = this.state;
+
+    Alert.alert(this.state.email + " " + this.state.productname + " " + this.state.productdescription);
+
     this.setState({ error: '', loading: true });
     myURL = 'https://webstudio.web.tr/portfolio_update_put.php';
     const data = new FormData();
@@ -78,37 +76,26 @@ class MyPortfolio extends Component {
     data.append('productdescription', this.state.productdescription);
 
     data.append('photo', {
-      uri: this.props.userpicture,
+      uri: this.props.navigation.getParam('photouri'),
       type: 'image/jpeg', // or photo.type
-      name: email+'_'+(Math.floor(Math.random() * 10000000)) + '.jpeg',
+      name: this.state.email +'_'+ (Math.floor(Math.random() * 10000000)) + '.jpeg',
     });
     //Alert.alert(photoid+'');
     return fetch(myURL, {
       method: 'post',
       body: data
     })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        if (this._mounted) {
-          this.setState({ error: responseJson.basari, loading: false });
-        }
-        if (responseJson.basari == true) {
-          //Alert.alert("kayit basarili");
-        } else {
-          if (this._mounted) {
-           this.setState({ error: responseJson.basari });
-          }
-          //Alert.alert(responseJson.basari);
-        }
-      })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({ error: responseJson.basari, loading: false });
+      if (responseJson.basari == true) {
+        Alert.alert("kayit basarili");
+      } else {
+        this.setState({ error: responseJson.basari });
+      }
+    })
   }
-  async getKey(key) {
-    try {
-      this.value = await AsyncStorage.getItem(key);
-    } catch (error) {
-      //console.log("Error retrieving data" + error);
-    }
-  }
+
   async saveKey(key, value) {
     try {
       await AsyncStorage.setItem(key, value);
@@ -123,7 +110,7 @@ class MyPortfolio extends Component {
 
     return (
       <Button onPress={this.onGuncellePress.bind(this)}>
-        {I18n.t('i18n_newcake')}
+        {I18n.t('i18n_newfood')}
       </Button>
     );
   }
@@ -140,20 +127,19 @@ class MyPortfolio extends Component {
   }
 
   PhotoSection() {
-    console.log("The props argument is not showing=" + this.props.userpicture);
-    if (!this.props.userpicture) {
+      if (!this.props.navigation.getParam('photouri')) {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
           <Image style={{ height: 200, width: 150 }} source={{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + this.state.email + '/' + (this.state.photoid) + '.jpeg' }} />
-          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_cake_photo')}</Text>
+          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_food_photo')}</Text>
         </TouchableOpacity>
       );
 
     } else {
       return (
         <TouchableOpacity onPress={this.shotPhoto.bind(this)}>
-          <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.userpicture }} />
-          <Text style={{ height: 50, width: 150, backgroundColor: 'green' }}>{I18n.t('i18n_shot_cake_photo')}</Text>
+          <Image style={{ height: 200, width: 150 }} source={{ uri: this.props.navigation.getParam('photouri') }} />
+          <Text style={{ height: 50, width: 150, backgroundColor: 'orange' }}>{I18n.t('i18n_shot_food_photo')}</Text>
         </TouchableOpacity>
       );
     }
@@ -163,21 +149,23 @@ class MyPortfolio extends Component {
 
     return (
       <View>
-        <StatusBar hidden={true} />
         <Card>
+          <CardSection>
+      
+          </CardSection>
           <CardSection>
             {this.PhotoSection()}
           </CardSection>
           <CardSection>
           <Input
-            label={I18n.t('i18n_cake_type')}
+            label={I18n.t('i18n_food_type')}
             value={this.state.productname}
             onChangeText={productname => this.setState({ productname })}
           />
           </CardSection>
           <CardSection>
           <Minput
-            label={I18n.t('i18n_cake_details')}
+            label={I18n.t('i18n_food_details')}
             value={this.state.productdescription}
             onChangeText={productdescription => this.setState({ productdescription })}
           />
@@ -203,7 +191,11 @@ const styles = {
   rolTextStyle: {
     fontSize: 20,
     color: 'purple'
-  }
-};
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
+}; 
 
 export default MyPortfolio;

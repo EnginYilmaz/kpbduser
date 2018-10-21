@@ -23,7 +23,7 @@ export default class Fetchdata extends Component {
     basari: false,
     markers: [],
   };
- 
+
   async getKey(key) {
     if (this._mounted) {
       try {
@@ -33,6 +33,8 @@ export default class Fetchdata extends Component {
       }
     }
   }
+
+ 
   componentWillUnmount() {
     this._mounted = false;
   }
@@ -114,8 +116,6 @@ export default class Fetchdata extends Component {
   }
   
   render() {
-    let enlem = parseFloat(this.props.latitude);
-    let boylam = parseFloat(this.props.longitude);
     //Alert.alert(enlem);  
     return (
         <View>
@@ -123,8 +123,8 @@ export default class Fetchdata extends Component {
             <MapView
                 style={styles.map}
                 initialRegion={{
-                    latitude: enlem,
-                    longitude: boylam, 
+                    latitude: this.props.latitude,
+                    longitude: this.props.longitude, 
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.015,
                 }}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {Text, View, StyleSheet, StatusBar, Image } from 'react-native'
 import I18n from 'ex-react-native-i18n';
+import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+
 
 const styles = StyleSheet.create({
   container: {
@@ -51,11 +53,11 @@ export default class ShowPortfolio extends Component {
   render() {
     this.getPortfolio();
 
-    if (this.state.urunler) {
+    if (this.state.urunler != null) {
       return (
         <View style={styles.container}>
           <StatusBar hidden={true} />
-
+          
           {this.state.urunler.map((urun, index) => (
             <View key={index} style={styles.tub}>
               <Image key={index} style={{width: 50, height: 50}} source= {{ uri: 'https://webstudio.web.tr/resimler/portfolio/' + urun.resimler}} />
@@ -69,7 +71,7 @@ export default class ShowPortfolio extends Component {
       return (
         <View>
           <StatusBar hidden={true} />
-          <Text>{I18n.t('i18n_no_cake')}</Text>
+          <Text>{I18n.t('i18n_no_food')}</Text>
         </View>
       );
     }

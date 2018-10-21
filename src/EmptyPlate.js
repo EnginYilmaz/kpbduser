@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, View, ViewPropTypes } from 'react-native';
 import Button from 'react-native-button';
-import {Actions} from 'react-native-router-flux';
 import I18n from 'ex-react-native-i18n';
 
 
@@ -53,7 +52,7 @@ class EmptyPlate extends React.Component {
         return (
             <View style={styles.container}>
                 <Button style={styles.user} onPress={Actions.user}>{I18n.t('i18n_login')}</Button>
-                <Button style={styles.map} onPress={Actions.mapscreen}>{I18n.t('i18n_cakeonthemaps')}</Button>
+                <Button style={styles.map} onPress={Actions.mapscreen}>{I18n.t('i18n_foodonthemaps')}</Button>
             </View>
         );
     }

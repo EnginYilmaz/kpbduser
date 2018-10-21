@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { Actions } from "react-native-router-flux";
 import Icon from ".//Icon";
 
 export default class Menu extends React.PureComponent {
