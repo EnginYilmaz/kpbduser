@@ -183,8 +183,8 @@ class MyAccountForm extends Component {
       this.saveKey('@komsudapiser:email', '');
       //RNRestart.Restart();
       //Actions.user();
-      this.props.navigation.navigate('user')
-
+      //this.props.navigation.navigate('user')
+      Expo.Util.reload()
     }
   }
   async getKey(key) {

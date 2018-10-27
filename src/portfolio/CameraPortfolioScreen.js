@@ -11,7 +11,6 @@ async press() {
         let photo = await this.camera.takePictureAsync();
         console.log(photo);
         this.props.navigation.navigate('portfolio', {photouri: photo.uri} );
-
     }
 }
 

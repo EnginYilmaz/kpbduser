@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, AppRegistry, Image, StyleSheet,  Alert, View, Text, AsyncStorage } from 'react-native';
+import { Button, Image, StyleSheet, ActivityIndicator,  StatusBar, Alert, View, Text, AsyncStorage } from 'react-native';
 import Plainlogin from './src/user/Plainlogin.js';
 import Mapscreen from './src/map/Mapscreen.js';
 import FBRegister from './src/user/FBRegister.js';
@@ -11,15 +11,15 @@ import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import SendMessage from './src/messages/SendMessage.js';
 import I18n from 'ex-react-native-i18n';
-import { createStackNavigator, createDrawerNavigator, NavigationActions, DrawerItems, SafeAreaView } from 'react-navigation'; // Version can be specified in package.json
+import { createStackNavigator, createDrawerNavigator, createSwitchNavigator, DrawerItems } from 'react-navigation'; // Version can be specified in package.json
 import { Ionicons } from '@expo/vector-icons';
 import LoginForm from './src/user/LoginForm.js';
 import { Container, Content, Header, Body, Icon} from 'native-base';
+import Expo from 'expo';  // <--- include this line
 
 class App extends React.Component {   
   constructor(props, context) {
     super(props, context);
-
   }
   state = {
     logged: false,
@@ -52,20 +52,27 @@ class App extends React.Component {
         .then((email) => {
           this.setState({
             emailuri: 'https://webstudio.web.tr/resimler/kullaniciresmi/' + email + '.jpeg',
+            logged: 'loggedIn',
           });
-          console.log(this.state.emailuri)
+          console.log(email)
         });
         //const eposta = await AsyncStorage.getItem('@komsudapiser:email');
-        //console.log(eposta)
 }
 
 
 //----------
   render() {
     if (this.state.loading) {
-      return <View><Text>{I18n.t('i18n_session_starting')}</Text></View>;
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator />
+          <Text>{I18n.t('i18n_session_starting')}</Text>
+          <StatusBar barStyle="default" />
+        </View>
+      );
+      return <View></View>;
     }
-    return <RootStack emailurl={this.state.emailuri}/>;
+    return <LoggedRootStack loggedIn={{ loggedIn: this.state.logged}} screenProps={{emailUri: this.state.emailuri}} />;
   }
 };
 
@@ -76,7 +83,8 @@ I18n.fallbacks = true;
 I18n.translations = {
   en: {
     i18n_komsuda_piser: 'food market',
-    i18n_session_starting: '\n\n\nSession starting...',
+    i18n_session_starting: 'Connectiong to server...',
+    i18n_session_credidentials: 'Getting session information',
     i18n_myaccount: 'My account',
     i18n_messages: 'My messages',
     i18n_newfood: 'New food!',
@@ -108,26 +116,27 @@ I18n.translations = {
   },
   tr: {
     i18n_komsuda_piser: 'Komşuda pişer',
-    i18n_session_starting: '\n\n\nOturum açılıyor...',
+    i18n_session_starting: 'Sunucuya bağlanılıyor...',
+    i18n_session_credidentials: 'Oturum bilgileri alınıyor',
     i18n_myaccount: 'Hesabım',
     i18n_messages: 'Mesajlarım',
     i18n_newfood: 'Yeni yiyecek!',
     i18n_foodonthemaps: 'Haritada yiyecek!',
     i18n_sendmessage: 'Mesaj gönder',
-    i18n_select_cooker: 'Haritadan bir pastacı seçin',
-    i18n_shot_food_photo: 'Bir pasta fotoğrafı çekin',
-    i18n_food_type: 'Pasta türü',
-    i18n_food_details: 'Pasta özellikleri',
+    i18n_select_cooker: 'Haritadan bir hayırsever seçin',
+    i18n_shot_food_photo: 'Bir yemek fotoğrafı çekin',
+    i18n_food_type: 'Yemek türü',
+    i18n_food_details: 'Yemek özellikleri',
     i18n_message_body: 'Mesajınız',
     i18n_shot_your_photo: 'Fotoğrafınızı çekin',
     i18n_full_name: 'Ad soyad',
     i18n_email: 'E-posta',
     i18n_password: 'Şifre',
     i18n_password_repeat: 'Şifre tekrar',
-    i18n_food_master: 'Ben bir pastacıyım\n(Beni ve konumumu haritalarda listele)',
+    i18n_food_master: 'Ben bir hayırseverim\n(Beni ve konumumu haritalarda listele)',
     i18n_logout: 'Çıkış yap',
-    i18n_update: 'Bilgilerimiz güncelle',
-    i18n_no_food: 'Haritalarda pasta bulunamadı',
+    i18n_update: 'Bilgilerinizi güncelleyin',
+    i18n_no_food: 'Haritalarda yiyecek bulunamadı',
     i18n_email_placeholder: 'kullanıcı@mail.com',
     i18n_login: 'Giriş',
     i18n_register: 'Kaydol',
@@ -142,33 +151,6 @@ I18n.translations = {
   }
 }
 //---------------------------------------------------------------------------------------------
-
-const customDrawerHeader=(props)=> (
-
-  <Container>
-    <Header style={styles.drawerHeader}>
-      <Body>
-        <Image 
-          source={{ uri: 'https://webstudio.web.tr/resimler/kullaniciresmi/' + 'icon' + '.png' }} 
-          style={{
-            borderWidth:1,
-            borderColor:'orange',
-            alignItems:'center',
-            justifyContent:'center',
-            width:200,
-            height:200,
-            backgroundColor:'orange',
-            borderRadius:100,
-          }}
-        />
-      </Body>
-    </Header>
-    <Content>
-      <DrawerItems {...props} />
-    </Content>
-    </Container>
-);
-
 const styles = StyleSheet.create({
 
   container: {
@@ -187,8 +169,8 @@ const styles = StyleSheet.create({
   }
 
 })
-
-const DrawerMenu = createDrawerNavigator({
+//---------------------------------------------------------------------------------------------
+const DrawerMenuLoggedin = createDrawerNavigator({
 
   portfolio: { 
     screen: MyPortfolio,
@@ -198,9 +180,49 @@ const DrawerMenu = createDrawerNavigator({
   },
   mapscreen: {
     screen: Mapscreen,
+    title: 'haritalar',
+
   },
   messages: {
     screen: MyMessages,
+  },
+},{ 
+  initialRouteName: 'mapscreen',
+  contentComponent:(props)=>(
+
+    <Container>
+    <Header style={styles.drawerHeader}>
+      <Body>
+        <Image 
+          source={{ uri: props.screenProps.emailUri }} 
+          style={{
+            borderWidth:1,
+            borderColor:'orange',
+            alignItems:'center',
+            justifyContent:'center',
+            width:200,
+            height:200,
+            backgroundColor:'orange',
+            borderRadius:100,
+          }}
+        />
+      </Body>
+    </Header>
+    <Content>
+      <DrawerItems {...props} />
+    </Content>
+    </Container>
+  ),
+  drawerCloseRoute: 'DrawerClose',
+  drawerToggleRoute: 'DrawerToggle',
+  headerMode: 'none',
+});
+//--------------------------------------------------------------
+const DrawerMenuLoggedout = createDrawerNavigator({
+  mapscreen: {
+    screen: Mapscreen,
+    title: 'haritalar',
+
   },
   login: {
     screen: LoginForm,
@@ -208,18 +230,40 @@ const DrawerMenu = createDrawerNavigator({
   register: {
     screen: Plainregister,
   },
-},{
+},{ 
   initialRouteName: 'mapscreen',
- contentComponent: customDrawerHeader,
+  contentComponent:(props)=>(
+
+    <Container>
+    <Header style={styles.drawerHeader}>
+      <Body>
+        <Image 
+          source={{ uri: props.screenProps.emailUri }} 
+          style={{
+            borderWidth:1,
+            borderColor:'orange',
+            alignItems:'center',
+            justifyContent:'center',
+            width:200,
+            height:200,
+            backgroundColor:'orange',
+            borderRadius:100,
+          }}
+        />
+      </Body>
+    </Header>
+    <Content>
+      <DrawerItems {...props} />
+    </Content>
+    </Container>
+  ),
   drawerCloseRoute: 'DrawerClose',
   drawerToggleRoute: 'DrawerToggle',
   headerMode: 'screen',
 });
-
-const RootStack = createStackNavigator({
-  drawermenu: {
-    screen: DrawerMenu,
-  },
+//---------------------------------------------------------------
+const loggedRootStack = createStackNavigator({
+  drawermenu: { screen: DrawerMenuLoggedin },
   sendmessage: {
     screen: SendMessage,
   },
@@ -230,7 +274,54 @@ const RootStack = createStackNavigator({
     screen: CameraPortfolioScreen,
   },
 })
+//---------------------------------------------------------------
+const defaultRootStack = createStackNavigator({
+  drawermenu: { screen: DrawerMenuLoggedout },
+  sendmessage: {
+    screen: SendMessage,
+  },
+})
+//--------------------------------------------------------------
+class AuthLoadingScreen extends React.Component {
+  constructor() {
+    super();
+    this._bootstrapAsync();
+  }
+  _bootstrapAsync = async () => {
+      const oturum = await AsyncStorage.getItem('@komsudapiser:oturum');
 
-AppRegistry.registerComponent('kpbduser', () => RootStack);
+          if (oturum == 'basarili') {
+            this.props.navigation.navigate('App');
+
+          } else {
+            this.props.navigation.navigate('Auth');
+
+          }
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+        <Text>{I18n.t('i18n_session_credidentials')}</Text>
+        <StatusBar barStyle="default" />
+      </View>
+    );
+  }
+}
+//-----------------------------------------------------------------------------
+let LoggedRootStack= createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: loggedRootStack,
+    Auth: defaultRootStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+);
+//----------------------------------------------------------------
+Expo.registerRootComponent(LoggedRootStack);
+//---------------------------------------------------------------
 
 export default App;

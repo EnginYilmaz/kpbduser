@@ -51,7 +51,7 @@ class Mapscreen extends Component {
       />
     ),
 
-    headerTintColor: '#fff',
+    headerTintColor: '#abc',
     headerTitleStyle: {
       fontWeight: 'bold',
     },

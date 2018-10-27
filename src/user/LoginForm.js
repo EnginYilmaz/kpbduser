@@ -4,6 +4,7 @@ import { Button, Card, CardSection, Input, Spinner } from './common';
 import I18n from 'ex-react-native-i18n';
 //import RNRestart from 'react-native-restart';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+import { Constants, Location, Permissions } from 'expo';
 
 I18n.initAsync();
 
@@ -74,7 +75,7 @@ class LoginForm extends Component {
         }
       })
     //RNRestart.Restart();
-
+    Expo.Util.reload() 
   }
   componentDidMount() {
     this._mounted = true;

@@ -27,15 +27,14 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 100,
+      "versionCode": 101,
       "package": "com.webstudiowebtr.kpbduser",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyDka4wj7t6mz4rvwRiseaHnOMSpRyKD9Kc"
         }
-      },
-      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
-      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+      }
     },
+    "githubUrl": "https://github.com/EnginYilmaz/kpbduser/"
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, AppRegistry, StatusBar} from 'react-native'
+import { AsyncStorage, Text, View, StyleSheet, Switch, Alert, StatusBar} from 'react-native'
 import MapView, {Marker, ProviderPropType} from 'react-native-maps';
 
 const styles = StyleSheet.create({
@@ -70,21 +70,10 @@ export default class Fetchdata extends Component {
     .catch((error) =>{
       console.error(error);
     });
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-          if (this._mounted) {
-            this.setState({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              error: null,
-          });
-         }
-    },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
+
    }
-   onRegionChange (region) {
+
+   onRegionChanged (region) {
     return fetch('https://webstudio.web.tr/query_maps.php' + '?latitude=' + region.latitude + '&longitude=' + region.longitude, {
       method: "GET",
       mode: "cors",
@@ -116,7 +105,8 @@ export default class Fetchdata extends Component {
   }
   
   render() {
-    //Alert.alert(enlem);  
+    //Alert.alert(enlem);
+    //let currentposition = { this.props.latitude + 0.001, this.props.longitude + 0.001}
     return (
         <View>
           <StatusBar hidden={true} />
@@ -128,7 +118,7 @@ export default class Fetchdata extends Component {
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.015,
                 }}
-            onRegionChange={this.onRegionChange.bind(this)}
+            onRegionChange={this.onRegionChanged.bind(this)}
             >
             {this.state.markers.map((marker, index) => (
               <Marker key={index} coordinate={marker.latlng} title={marker.title} onPress={e => this.onPressMarker(marker.index)}/>
