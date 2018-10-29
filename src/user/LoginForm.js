@@ -6,25 +6,7 @@ import I18n from 'ex-react-native-i18n';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import { Constants, Location, Permissions } from 'expo';
 
-I18n.initAsync();
-
-//Alert.alert(I18n.locale)
-if ( I18n.locale== 'en') {
-  signin= 'Sign in';
-} else if (I18n.locale == 'tr') {
-  signin= 'Giriş yap';
-}
-
 class LoginForm extends Component {
-  static navigationOptions = {
-    drawerLabel: signin,
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        style={{ width: 30,height: 30}}
-        source={require('../../assets/enter.png')}
-      />
-    ),
-  }
   state = { email: '', password: '', error: '', loading: false };
 
   async saveOturum(key, value) {

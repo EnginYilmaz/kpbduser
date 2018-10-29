@@ -7,25 +7,7 @@ import { createStackNavigator } from 'react-navigation'; // Version can be speci
 
 import { Constants, Location, Permissions } from 'expo';
 
-I18n.initAsync();
-
-//Alert.alert(I18n.locale)
-if ( I18n.locale== 'en') {
-  my_account= 'My account';
-} else if (I18n.locale == 'tr') {
-  myportfolio= 'Hesabım';
-}
-
 class MyAccountForm extends Component {
-  static navigationOptions = {
-    drawerLabel: my_account,
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        style={{ width: 35,height: 30}}
-        source={require('../../assets/home.png')}
-      />
-    ),
-  }
   constructor(props) {
     super(props);
   }
@@ -59,22 +41,6 @@ class MyAccountForm extends Component {
   async componentDidMount() {
     this._mounted = true;
     if (this._mounted) {
-      /*
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-
-          this.saveKey('@komsudapiser:lat', (position.coords.latitude));
-          this.saveKey('@komsudapiser:lng', (position.coords.longitude));
-          this.setState({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            error: null,
-          });
-        },
-        (error) => this.setState({ error: error.message }),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-      );
-      */
       const emailim = await AsyncStorage.getItem('@komsudapiser:email');
       //console.log(emailim);
       this.setState({ error: '', loading: true });
@@ -169,7 +135,7 @@ class MyAccountForm extends Component {
           .then((responseJson) => {
             this.setState({ error: responseJson.basari, loading: false });
             if (responseJson.basari == true) {
-              Alert.alert("kayit basarili");
+              //Alert.alert("kayit basarili");
             } else {
               this.setState({ error: responseJson.basari });
             }

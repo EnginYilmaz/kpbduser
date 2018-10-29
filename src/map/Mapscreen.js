@@ -32,30 +32,7 @@ const styles = StyleSheet.create({
   },
 });
 
-I18n.initAsync();
-
-//Alert.alert(I18n.locale)
-if ( I18n.locale== 'en') {
-  food_on_the_maps= 'Foods on the maps';
-} else if (I18n.locale == 'tr') {
-  food_on_the_maps= 'Haritadaki yiyecekler!';
-}
 class Mapscreen extends Component {
-
-  static navigationOptions = {
-    drawerLabel: food_on_the_maps,
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        style={{ width: 30,height: 30}}
-        source={require('../../assets/food-on-the-maps.png')}
-      />
-    ),
-
-    headerTintColor: '#abc',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  }
   state = {
     lat: null,
     lng: null,
@@ -89,6 +66,10 @@ class Mapscreen extends Component {
     this._mounted = true;
   }
   componentWillMount() {
+
+
+    this.props.navigation.setParams({ drawerLabelText: 'deneme' });
+
     if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',

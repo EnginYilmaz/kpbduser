@@ -4,25 +4,7 @@ import { Button, Card, CardSection, Input, Minput, Spinner } from '../user/commo
 import I18n from 'ex-react-native-i18n';
 import { createStackNavigator, createDrawerNavigator, NavigationActions} from 'react-navigation'; // Version can be specified in package.json
 
-I18n.initAsync();
-
-//Alert.alert(I18n.locale)
-if ( I18n.locale== 'en') {
-  my_portfolio= 'New food!';
-} else if (I18n.locale == 'tr') {
-  myportfolio= 'Yeni yiyecek!';
-}
-
 class MyPortfolio extends Component {
-  static navigationOptions = {
-    drawerLabel: my_portfolio,
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        style={{ width: 35,height: 30}}
-        source={require('../../assets/new-food.png')}
-      />
-    ),
-  }
   constructor(props) {
     super(props);
 
@@ -66,7 +48,7 @@ class MyPortfolio extends Component {
   onGuncellePress() {
     const { emailim, productname, productdescription } = this.state;
 
-    Alert.alert(this.state.email + " " + this.state.productname + " " + this.state.productdescription);
+    //Alert.alert(this.state.email + " " + this.state.productname + " " + this.state.productdescription);
 
     this.setState({ error: '', loading: true });
     myURL = 'https://webstudio.web.tr/portfolio_update_put.php';

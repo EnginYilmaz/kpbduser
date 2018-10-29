@@ -56,7 +56,7 @@ export default class ShowPortfolio extends Component {
     if (this.state.urunler != null) {
       return (
         <View style={styles.container}>
-          <StatusBar hidden={true} />
+          
           
           {this.state.urunler.map((urun, index) => (
             <View key={index} style={styles.tub}>
@@ -70,7 +70,7 @@ export default class ShowPortfolio extends Component {
     } else {
       return (
         <View>
-          <StatusBar hidden={true} />
+          
           <Text>{I18n.t('i18n_no_food')}</Text>
         </View>
       );

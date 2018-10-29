@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Image, StyleSheet, ActivityIndicator,  StatusBar, Alert, View, Text, AsyncStorage } from 'react-native';
 import Plainlogin from './src/user/Plainlogin.js';
 import Mapscreen from './src/map/Mapscreen.js';
-import FBRegister from './src/user/FBRegister.js';
+//import FBRegister from './src/user/FBRegister.js';
 import MyAccountForm from './src/user/MyAccountForm.js';
 import Plainregister from './src/user/Plainregister.js';
 import MyPortfolio from './src/portfolio/MyPortfolio.js';
@@ -11,7 +11,7 @@ import CameraScreen from './src/user/CameraScreen.js';
 import CameraPortfolioScreen from './src/portfolio/CameraPortfolioScreen.js';
 import SendMessage from './src/messages/SendMessage.js';
 import I18n from 'ex-react-native-i18n';
-import { createStackNavigator, createDrawerNavigator, createSwitchNavigator, DrawerItems } from 'react-navigation'; // Version can be specified in package.json
+import { DrawerActions, createStackNavigator, createDrawerNavigator, createSwitchNavigator, DrawerItems } from 'react-navigation'; // Version can be specified in package.json
 import { Ionicons } from '@expo/vector-icons';
 import LoginForm from './src/user/LoginForm.js';
 import { Container, Content, Header, Body, Icon} from 'native-base';
@@ -76,12 +76,12 @@ class App extends React.Component {
   }
 };
 
-
-
 I18n.fallbacks = true;
 
 I18n.translations = {
   en: {
+    i18n_food_on_the_maps: 'Foods on the maps',
+
     i18n_komsuda_piser: 'food market',
     i18n_session_starting: 'Connectiong to server...',
     i18n_session_credidentials: 'Getting session information',
@@ -115,6 +115,7 @@ I18n.translations = {
     i18n_click_to_shot_food: 'Click to shot photo of food',
   },
   tr: {
+    i18n_food_on_the_maps: 'Haritada yiyecekler',
     i18n_komsuda_piser: 'Komşuda pişer',
     i18n_session_starting: 'Sunucuya bağlanılıyor...',
     i18n_session_credidentials: 'Oturum bilgileri alınıyor',
@@ -172,19 +173,82 @@ const styles = StyleSheet.create({
 //---------------------------------------------------------------------------------------------
 const DrawerMenuLoggedin = createDrawerNavigator({
 
-  portfolio: { 
+  portfolio: {
     screen: MyPortfolio,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      headerMode: 'auto',
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_newfood'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/new-food.png')}
+        />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
   },
   myaccount: {
     screen: MyAccountForm,
-  },
-  mapscreen: {
-    screen: Mapscreen,
-    title: 'haritalar',
-
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_myaccount'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/home.png')}
+        />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
   },
   messages: {
     screen: MyMessages,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_messages'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/box-add.png')}
+        />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
+  },
+  mapscreen: {
+    screen: Mapscreen,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_food_on_the_maps'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/food-on-the-maps.png')}
+        />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
   },
 },{ 
   initialRouteName: 'mapscreen',
@@ -217,18 +281,90 @@ const DrawerMenuLoggedin = createDrawerNavigator({
   drawerToggleRoute: 'DrawerToggle',
   headerMode: 'none',
 });
+
+DrawerMenuLoggedin.navigationOptions = ({ navigation }) => {
+  const { routes, index } = navigation.state;
+  const navigationOptions = {};
+  
+  navigationOptions.headerLeft= <Icon name="menu" size={55} onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer())} />
+
+    switch (routes[index].routeName) {
+      case 'portfolio' : navigationOptions.title =  I18n.t('i18n_newfood');
+                        break;
+      case 'myaccount' : navigationOptions.title = I18n.t('i18n_myaccount');
+                        break;
+      case 'messages'  : navigationOptions.title = I18n.t('i18n_messages');
+                        break;
+      case 'mapscreen' : navigationOptions.title = I18n.t('i18n_food_on_the_maps');
+                        break;
+  }
+  navigationOptions.headerTintColor= '#abc';
+  navigationOptions.headerStyle= {
+    backgroundColor: '#e6b'
+  };
+  navigationOptions.headerTitleStyle= {
+    fontWeight: 'bold',
+  };
+  return navigationOptions;
+}
 //--------------------------------------------------------------
 const DrawerMenuLoggedout = createDrawerNavigator({
   mapscreen: {
     screen: Mapscreen,
-    title: 'haritalar',
-
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_food_on_the_maps'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/food-on-the-maps.png')}
+        />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
   },
   login: {
     screen: LoginForm,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_login'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/enter.png')}
+          />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
   },
   register: {
     screen: Plainregister,
+    navigationOptions: ({navigation}) => ({
+      headerStyle: {backgroundColor: 'green'},
+      gesturesEnabled: false,
+      drawerLabel: I18n.t('i18n_register'),
+      drawerIcon: ({ tintColor }) => (
+        <Image
+          style={{ width: 30,height: 30}}
+          source={require('./assets/clipboard.png')}
+          />
+      ),
+      headerTintColor: '#abc',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+  
+    })
   },
 },{ 
   initialRouteName: 'mapscreen',
@@ -261,6 +397,29 @@ const DrawerMenuLoggedout = createDrawerNavigator({
   drawerToggleRoute: 'DrawerToggle',
   headerMode: 'screen',
 });
+DrawerMenuLoggedout.navigationOptions = ({ navigation }) => {
+  const { routes, index } = navigation.state;
+  const navigationOptions = {};
+  
+  navigationOptions.headerLeft= <Icon name="menu" size={55} onPress={ () => navigation.dispatch(DrawerActions.toggleDrawer())} />
+
+    switch (routes[index].routeName) {
+      case 'mapscreen' : navigationOptions.title =  I18n.t('i18n_food_on_the_maps');
+                        break;
+      case 'login' : navigationOptions.title = I18n.t('i18n_login');
+                        break;
+      case 'register'  : navigationOptions.title = I18n.t('i18n_register');
+                        break;
+  }
+  navigationOptions.headerTintColor= '#abc';
+  navigationOptions.headerStyle= {
+    backgroundColor: '#e6b'
+  };
+  navigationOptions.headerTitleStyle= {
+    fontWeight: 'bold',
+  };
+  return navigationOptions;
+}
 //---------------------------------------------------------------
 const loggedRootStack = createStackNavigator({
   drawermenu: { screen: DrawerMenuLoggedin },
@@ -310,16 +469,14 @@ class AuthLoadingScreen extends React.Component {
   }
 }
 //-----------------------------------------------------------------------------
-let LoggedRootStack= createSwitchNavigator(
-  {
+let LoggedRootStack= createSwitchNavigator({
     AuthLoading: AuthLoadingScreen,
     App: loggedRootStack,
     Auth: defaultRootStack,
   },
   {
     initialRouteName: 'AuthLoading',
-  }
-);
+  });
 //----------------------------------------------------------------
 Expo.registerRootComponent(LoggedRootStack);
 //---------------------------------------------------------------

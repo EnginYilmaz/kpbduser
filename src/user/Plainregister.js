@@ -5,24 +5,9 @@ import RegisterForm from './RegisterForm.js';
 import I18n from 'ex-react-native-i18n';
 import { Constants, Location, Permissions } from 'expo';
 
-I18n.initAsync();
-
-if ( I18n.locale== 'en') {
-  register= 'Sign up';
-} else if (I18n.locale == 'tr') {
-  register= 'Kaydol';
-}
 
 class Plainregister extends Component {
-  static navigationOptions = {
-    drawerLabel: register,
-    drawerIcon: ({ tintColor }) => (
-    <Image
-      style={{ width: 30,height: 30}}
-      source={require('../../assets/clipboard.png')}
-    />
-    ),
-  }
+
   state = { latitude:null, longitude:null, loggedIn: false };
   componentDidMount = () => {
   }

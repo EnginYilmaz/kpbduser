@@ -35,7 +35,7 @@ class Plainlogin extends Component {
   render() {
       return (
         <View>
-          <StatusBar hidden={true} />
+          
           <Header headerText={I18n.t('i18n_user_login_information')} />
           {this.renderContent()}
         </View>

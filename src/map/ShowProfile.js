@@ -35,7 +35,7 @@ export default class ShowProfile extends Component {
       return (
         <Card>
         <View>
-          <StatusBar hidden={true} />
+          
           <Image source={pic} style={{width: 100, height: 150}}/>
           <Text>{this.props.adsoyad}</Text>
           <CardSection>

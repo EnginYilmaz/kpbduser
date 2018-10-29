@@ -14,22 +14,7 @@ const styles = StyleSheet.create({
 });
 I18n.initAsync();
 
-if ( I18n.locale== 'en') {
-  my_messages= 'My messages';
-} else if (I18n.locale == 'tr') {
-  my_messages= 'Mesaj kutum';
-}
 export default class GetMessage extends Component {
-  static navigationOptions = {
-    header: 'deneme',
-    drawerLabel: my_messages,
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        style={{ width: 35,height: 30}}
-        source={require('../../assets/box-add.png')}
-      />
-    ),
-  }
 
   state = {
     email: null,
@@ -92,7 +77,7 @@ export default class GetMessage extends Component {
     } else {
       return (
         <View>
-          <StatusBar hidden={true} />
+          
           <Text>{I18n.t('i18n_nomessage_inbox')}</Text>
         </View>
       );

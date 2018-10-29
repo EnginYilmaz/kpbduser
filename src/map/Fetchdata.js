@@ -109,7 +109,7 @@ export default class Fetchdata extends Component {
     //let currentposition = { this.props.latitude + 0.001, this.props.longitude + 0.001}
     return (
         <View>
-          <StatusBar hidden={true} />
+          
             <MapView
                 style={styles.map}
                 initialRegion={{

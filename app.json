@@ -27,7 +27,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 101,
+      "versionCode": 102,
       "package": "com.webstudiowebtr.kpbduser",
       "config": {
         "googleMaps": {
