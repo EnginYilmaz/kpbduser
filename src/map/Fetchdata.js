@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 
 export default class Fetchdata extends Component {
   constructor (props) {
+    //constructor
     super(props);
   };
   state = {
